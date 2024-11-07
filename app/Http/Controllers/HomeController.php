@@ -11,9 +11,14 @@ class HomeController extends Controller
         return view('index');
     }
    
-    public function Store()
+    public function Shop()
     {
         return view('pages.shop');
+    }
+   
+    public function Singleshop()
+    {
+        return view('pages.Single_shop');
     }
     public function About()
     {
@@ -28,5 +33,10 @@ class HomeController extends Controller
     public function Cart()
     {
         return view('pages.cart');
+    }
+    
+    public function Checkout()
+    {
+        return view('pages.checkout');
     }
 }

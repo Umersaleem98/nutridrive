@@ -8,7 +8,7 @@
 
 <body>
 
-  <div class="site-wrap">
+  <div class="">
 
 
     @include('layouts.header')

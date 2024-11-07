@@ -13,14 +13,14 @@
       <div class="d-flex align-items-center justify-content-between">
         <div class="logo">
           <div class="site-logo">
-            <a href="{{ url('/') }}" class="js-logo-clone"><strong class="text-primary">Pharma</strong>tive</a>
+            <a href="{{ url('/') }}" class="js-logo-clone"><strong class="text-primary">Nutri-</strong>drive</a>
           </div>
         </div>
         <div class="main-nav d-none d-lg-block">
           <nav class="site-navigation text-right text-md-center" role="navigation">
             <ul class="site-menu js-clone-nav d-none d-lg-block">
-              <li class="active"><a href="index.html">Home</a></li>
-              <li><a href="{{ url('store') }}">Store</a></li>
+              <li class="active"><a href="{{ url('/') }}">Home</a></li>
+              <li><a href="{{ url('shop') }}">Store</a></li>
               <li class="has-children">
                 <a href="#">Products</a>
                 <ul class="dropdown">

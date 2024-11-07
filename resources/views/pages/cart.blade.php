@@ -8,7 +8,7 @@
 
 <body>
 
-  <div class="site-wrap">
+  <div class="">
 
 
    @include('layouts.header')
@@ -145,7 +145,7 @@
     
                 <div class="row">
                   <div class="col-md-12">
-                    <button class="btn btn-primary btn-lg btn-block" onclick="window.location='checkout.html'">Proceed To
+                    <button class="btn btn-primary btn-lg btn-block" onclick="window.location='{{ url('checkout') }}'">Proceed To
                       Checkout</button>
                   </div>
                 </div>

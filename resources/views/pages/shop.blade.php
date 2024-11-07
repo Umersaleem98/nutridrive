@@ -2,12 +2,13 @@
 <html lang="en">
 
 <head>
+    <title>Store</title>
     @include('layouts.head')
 </head>
 
 <body>
 
-    <div class="site-wrap">
+    <div class="">
 
 
        @include('layouts.header')
@@ -27,9 +28,9 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <h3 class="mb-3 h6 text-uppercase text-black d-block">Filter by Price</h3>
-                        <div id="slider-range" class="border-primary"></div>
+                        {{-- <div id="slider-range" class="border-primary"></div>
                         <input type="text" name="text" id="amount" class="form-control border-0 pl-0 bg-white"
-                            disabled="" />
+                            disabled="" /> --}}
                     </div>
                     <div class="col-lg-6 text-lg-right">
                         <h3 class="mb-3 h6 text-uppercase text-black d-block">Filter</h3>
@@ -55,71 +56,71 @@
                 <div class="row">
                     <div class="col-sm-6 col-lg-4 text-center item mb-4 item-v2">
                         <span class="onsale">Sale</span>
-                        <a href="shop-single.html"> <img src="templates/images/product_01.png" alt="Image"></a>
-                        <h3 class="text-dark"><a href="shop-single.html">Bioderma</a></h3>
+                        <a href="{{ url('shop_single') }}"> <img src="templates/images/product_01.png" alt="Image"></a>
+                        <h3 class="text-dark"><a href="{{ url('shop_single') }}">Bioderma</a></h3>
                         <p class="price"><del>95.00</del> &mdash; $55.00</p>
                     </div>
                     <div class="col-sm-6 col-lg-4 text-center item mb-4 item-v2">
-                        <a href="shop-single.html"> <img src="templates/images/product_02.png" alt="Image"></a>
-                        <h3 class="text-dark"><a href="shop-single.html">Chanca Piedra</a></h3>
+                        <a href="{{ url('shop_single') }}"> <img src="templates/images/product_02.png" alt="Image"></a>
+                        <h3 class="text-dark"><a href="{{ url('shop_single') }}">Chanca Piedra</a></h3>
                         <p class="price">$70.00</p>
                     </div>
                     <div class="col-sm-6 col-lg-4 text-center item mb-4 item-v2">
-                        <a href="shop-single.html"> <img src="templates/images/product_03.png" alt="Image"></a>
-                        <h3 class="text-dark"><a href="shop-single.html">Umcka Cold Care</a></h3>
+                        <a href="{{ url('shop_single') }}"> <img src="templates/images/product_03.png" alt="Image"></a>
+                        <h3 class="text-dark"><a href="{{ url('shop_single') }}">Umcka Cold Care</a></h3>
                         <p class="price">$120.00</p>
                     </div>
 
                     <div class="col-sm-6 col-lg-4 text-center item mb-4 item-v2">
 
-                        <a href="shop-single.html"> <img src="templates/images/product_04.png" alt="Image"></a>
-                        <h3 class="text-dark"><a href="shop-single.html">Cetyl Pure</a></h3>
+                        <a href="{{ url('shop_single') }}"> <img src="templates/images/product_04.png" alt="Image"></a>
+                        <h3 class="text-dark"><a href="{{ url('shop_single') }}">Cetyl Pure</a></h3>
                         <p class="price"><del>45.00</del> &mdash; $20.00</p>
                     </div>
                     <div class="col-sm-6 col-lg-4 text-center item mb-4 item-v2">
-                        <a href="shop-single.html"> <img src="templates/images/product_05.png" alt="Image"></a>
-                        <h3 class="text-dark"><a href="shop-single.html">CLA Core</a></h3>
+                        <a href="{{ url('shop_single') }}"> <img src="templates/images/product_05.png" alt="Image"></a>
+                        <h3 class="text-dark"><a href="{{ url('shop_single') }}">CLA Core</a></h3>
                         <p class="price">$38.00</p>
                     </div>
                     <div class="col-sm-6 col-lg-4 text-center item mb-4 item-v2">
                         <span class="onsale">Sale</span>
-                        <a href="shop-single.html"> <img src="templates/images/product_06.png" alt="Image"></a>
-                        <h3 class="text-dark"><a href="shop-single.html">Poo Pourri</a></h3>
+                        <a href="{{ url('shop_single') }}"> <img src="templates/images/product_06.png" alt="Image"></a>
+                        <h3 class="text-dark"><a href="{{ url('shop_single') }}">Poo Pourri</a></h3>
                         <p class="price"><del>$89</del> &mdash; $38.00</p>
                     </div>
 
                     <div class="col-sm-6 col-lg-4 text-center item mb-4 item-v2">
                         <span class="onsale">Sale</span>
-                        <a href="shop-single.html"> <img src="templates/images/product_01.png" alt="Image"></a>
-                        <h3 class="text-dark"><a href="shop-single.html">Bioderma</a></h3>
+                        <a href="{{ url('shop_single') }}"> <img src="templates/images/product_01.png" alt="Image"></a>
+                        <h3 class="text-dark"><a href="{{ url('shop_single') }}">Bioderma</a></h3>
                         <p class="price"><del>95.00</del> &mdash; $55.00</p>
                     </div>
                     <div class="col-sm-6 col-lg-4 text-center item mb-4 item-v2">
-                        <a href="shop-single.html"> <img src="templates/images/product_02.png" alt="Image"></a>
-                        <h3 class="text-dark"><a href="shop-single.html">Chanca Piedra</a></h3>
+                        <a href="{{ url('shop_single') }}"> <img src="templates/images/product_02.png" alt="Image"></a>
+                        <h3 class="text-dark"><a href="{{ url('shop_single') }}">Chanca Piedra</a></h3>
                         <p class="price">$70.00</p>
                     </div>
                     <div class="col-sm-6 col-lg-4 text-center item mb-4 item-v2">
-                        <a href="shop-single.html"> <img src="templates/images/product_03.png" alt="Image"></a>
-                        <h3 class="text-dark"><a href="shop-single.html">Umcka Cold Care</a></h3>
+                        <a href="{{ url('shop_single') }}"> <img src="templates/images/product_03.png" alt="Image"></a>
+                        <h3 class="text-dark"><a href="{{ url('shop_single') }}">Umcka Cold Care</a></h3>
                         <p class="price">$120.00</p>
                     </div>
 
                     <div class="col-sm-6 col-lg-4 text-center item mb-4 item-v2">
 
-                        <a href="shop-single.html"> <img src="templates/images/product_04.png" alt="Image"></a>
-                        <h3 class="text-dark"><a href="shop-single.html">Cetyl Pure</a></h3>
+                        <a href="{{ url('shop_single') }}"> <img src="templates/images/product_04.png" alt="Image"></a>
+                        <h3 class="text-dark"><a href="{{ url('shop_single') }}">Cetyl Pure</a></h3>
                         <p class="price"><del>45.00</del> &mdash; $20.00</p>
                     </div>
                     <div class="col-sm-6 col-lg-4 text-center item mb-4 item-v2">
-                        <a href="shop-single.html"> <img src="templates/images/product_05.png" alt="Image"></a>
-                        <h3 class="text-dark"><a href="shop-single.html">CLA Core</a></h3>
+                        <a href="{{ url('shop_single') }}"> <img src="templates/images/product_05.png" alt="Image"></a>
+                        <h3 class="text-dark"><a href="{{ url('shop_single') }}">CLA Core</a></h3>
                         <p class="price">$38.00</p>
                     </div>
                     <div class="col-sm-6 col-lg-4 text-center item mb-4 item-v2">
                         <span class="onsale">Sale</span>
-                        <a href="shop-single.html"> <img src="templates/images/product_06.png" alt="Image"></a>
-                        <h3 class="text-dark"><a href="shop-single.html">Poo Pourri</a></h3>
+                        <a href="{{ url('shop_single') }}"> <img src="templates/images/product_06.png" alt="Image"></a>
+                        <h3 class="text-dark"><a href="{{ url('shop_single') }}">Poo Pourri</a></h3>
                         <p class="price"><del>$89</del> &mdash; $38.00</p>
                     </div>
                 </div>
