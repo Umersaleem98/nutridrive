@@ -14,3 +14,4 @@
 <link rel="stylesheet" href="{{ asset('templates/css/owl.theme.default.min.css') }}">
 <link rel="stylesheet" href="{{ asset('templates/css/aos.css') }}">
 <link rel="stylesheet" href="{{ asset('templates/css/style.css') }}">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
