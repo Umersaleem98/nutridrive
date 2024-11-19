@@ -24,7 +24,19 @@
           </ol>
         </nav>
       </div><!-- End Page Title -->
-    
+      @if (session('success'))
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+          {{ session('success') }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+  @endif
+
+  @if (session('error'))
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          {{ session('error') }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+  @endif
       <section class="section dashboard">
         <div class="row">
     
@@ -59,9 +71,12 @@
                           <th scope="col">Name</th>
                           <th scope="col">Category</th>
                           <th scope="col">Price</th>
+                          <th scope="col">Sale Price</th> <!-- Sale Price Column -->
                           <th scope="col">Stock</th>
+                          <th scope="col">Images</th> <!-- Images Column -->
+                          <th scope="col">Status</th> <!-- Status Column -->
                           <th scope="col">Description</th>
-                          <th scope="col">Actions</th> <!-- Add actions column -->
+                          <th scope="col">Actions</th> <!-- Actions Column -->
                         </tr>
                       </thead>
                       <tbody>
@@ -71,23 +86,38 @@
                             <td>{{ $product->name }}</td>
                             <td>{{ $product->category->name }}</td>
                             <td>${{ $product->price }}</td>
+                            <td>${{ $product->sale_price ?? 'N/A' }}</td> <!-- Display Sale Price -->
                             <td>{{ $product->stock }}</td>
+                            <td>
+                              @if($product->images)
+                                @php
+                                  $images = json_decode($product->images);
+                                @endphp
+                                @foreach($images as $image)
+                                  <img src="{{ asset('events/' . $image) }}" alt="Product Image" width="50" height="50" class="img-thumbnail">
+                                @endforeach
+                              @else
+                                N/A
+                              @endif
+                            </td>
+                            <td>
+                              <span class="badge {{ $product->status == 'active' ? 'bg-success' : 'bg-danger' }}">
+                                {{ ucfirst($product->status) }}
+                              </span>
+                            </td>
                             <td>{{ $product->description }}</td>
                             <td>
                               <!-- Edit Button -->
-                              <a href="{{ url('admin/products/'.$product->id.'/edit') }}" class="btn btn-warning btn-sm">Edit</a>
+                              <a href="{{ url('edit/'.$product->id) }}" class="btn btn-warning btn-sm">Edit</a>
                               
                               <!-- Delete Button -->
-                              <form action="{{ url('admin/products/'.$product->id) }}" method="POST" style="display:inline;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this product?')">Delete</button>
-                              </form>
+                              <a href="{{ url('delete/'.$product->id) }}" class="btn btn-danger btn-sm">Delete</a>
                             </td>
                           </tr>
                         @endforeach
                       </tbody>
                     </table>
+                    
                     
     
                   </div>
