@@ -4,6 +4,8 @@ use App\Models\Product;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DashboardProductController;
 
 // Auth Routes 
 Route::get('login', [AuthController::class, 'showLogin'])->name('login');
@@ -11,16 +13,23 @@ Route::post('login', [AuthController::class, 'login']);
 Route::get('register', [AuthController::class, 'showRegister'])->name('register');
 Route::post('register', [AuthController::class, 'register']);
 
-Route::get('dashboard', function () {
+// Route::get('/', function () {
 
-    $products = Product::paginate(9); // Fetch 9 products per page
-    return view('dashboard', ['products' => $products]);
-})->middleware('auth');
+//     $products = Product::paginate(9); // Fetch 9 products per page
+//     return view('index', ['products' => $products]);
+// })->middleware('auth');
 
 
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/', function () {
+        $products = Product::paginate(9); // Fetch 9 products per page
+        return view('index', ['products' => $products]);
+    });
+});
 Route::get('/', function () {
     $products = Product::paginate(9); // Fetch 9 products per page
-    return view('dashboard', ['products' => $products]);
+    return view('index', ['products' => $products]);
 });
 
 Route::post('logout', [AuthController::class, 'logout'])->name('logout');
@@ -35,3 +44,13 @@ Route::get('cart', [HomeController::class, 'cartpage'])->name('cart');
 Route::post('add-to-cart/{productId}', [HomeController::class, 'addToCart'])->name('add.to.cart');
 
 Route::get('checkout', [HomeController::class, 'checkoutpage'])->name('checkout');
+
+
+// Dashboard Routes 
+Route::get('admindashboard', [DashboardController::class, 'index']);
+
+// Dashboard Products routes 
+Route::get('products', [DashboardProductController::class, 'show']);
+Route::get('/create', [DashboardProductController::class, 'index']);
+Route::post('/store', [DashboardProductController::class, 'store']);
+

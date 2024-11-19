@@ -14,20 +14,46 @@ class AuthController extends Controller
         return view('auth.login');
     }
 
-    // Handle Login
+
+
     public function login(Request $request)
-    {
-        $credentials = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
+{
+    // Validate the login credentials
+    $credentials = $request->validate([
+        'email' => 'required|email',
+        'password' => 'required',
+    ]);
 
-        if (Auth::attempt($credentials)) {
-            return redirect()->intended('dashboard');
-        }
+    // Attempt login
+    if (Auth::attempt($credentials)) {
+        // Regenerate session to prevent fixation
+        $request->session()->regenerate();
 
-        return back()->withErrors(['email' => 'Invalid credentials']);
+        // Redirect to intended URL or fallback to home
+        return redirect()->intended('/')->with('success', 'You are now logged in!');
     }
+
+    // If authentication fails
+    return back()->withErrors([
+        'email' => 'Invalid credentials. Please try again.',
+    ])->withInput();
+}
+
+
+    // Handle Login
+    // public function login(Request $request)
+    // {
+    //     $credentials = $request->validate([
+    //         'email' => 'required|email',
+    //         'password' => 'required',
+    //     ]);
+
+    //     if (Auth::attempt($credentials)) {
+    //         return redirect()->intended('/');
+    //     }
+
+    //     return back()->withErrors(['email' => 'Invalid credentials']);
+    // }
 
     // Show Registration Form
     public function showRegister()
@@ -54,7 +80,7 @@ class AuthController extends Controller
     
         Auth::login($user);
     
-        return redirect('dashboard');
+        return redirect('index');
     }
     
 
