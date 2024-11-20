@@ -94,7 +94,7 @@
                                   $images = json_decode($product->images);
                                 @endphp
                                 @foreach($images as $image)
-                                  <img src="{{ asset('events/' . $image) }}" alt="Product Image" width="50" height="50" class="img-thumbnail">
+                                  <img src="{{ asset('products/' . $image) }}" alt="Product Image" width="50" height="50" class="img-thumbnail">
                                 @endforeach
                               @else
                                 N/A
@@ -105,7 +105,8 @@
                                 {{ ucfirst($product->status) }}
                               </span>
                             </td>
-                            <td>{{ $product->description }}</td>
+                            <td>{{ \Illuminate\Support\Str::limit($product->description, 30) }}</td>
+
                             <td>
                               <!-- Edit Button -->
                               <a href="{{ url('edit/'.$product->id) }}" class="btn btn-warning btn-sm">Edit</a>

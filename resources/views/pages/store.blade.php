@@ -14,8 +14,8 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-12 mb-0">
-                        <a href="index.html">Home</a> 
-                        <span class="mx-2 mb-0">/</span> 
+                        <a href="index.html">Home</a>
+                        <span class="mx-2 mb-0">/</span>
                         <strong class="text-black">Store</strong>
                     </div>
                 </div>
@@ -30,7 +30,8 @@
                         <h3 class="mb-3 h6 text-uppercase text-black d-block">Search Products</h3>
                         <form method="GET" action="{{ url('store') }}">
                             <div class="input-group">
-                                <input type="text" name="search" class="form-control" placeholder="Search by name or description" value="{{ request('search') }}">
+                                <input type="text" name="search" class="form-control"
+                                    placeholder="Search by name or description" value="{{ request('search') }}">
                                 <button type="submit" class="btn btn-primary">Search</button>
                             </div>
                         </form>
@@ -40,15 +41,18 @@
                     <div class="col-lg-6">
                         <h3 class="mb-3 h6 text-uppercase text-black d-block">Filter by Reference</h3>
                         <form id="reference-filter-form" method="GET" action="{{ url('store') }}">
-                            <button type="button" class="btn btn-secondary btn-md dropdown-toggle px-4" id="dropdownMenuReference"
-                                data-toggle="dropdown">Reference</button>
+                            <button type="button" class="btn btn-secondary btn-md dropdown-toggle px-4"
+                                id="dropdownMenuReference" data-toggle="dropdown">Reference</button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
                                 <a class="dropdown-item" href="#" onclick="applySort('relevance')">Relevance</a>
                                 <a class="dropdown-item" href="#" onclick="applySort('name_asc')">Name, A to Z</a>
-                                <a class="dropdown-item" href="#" onclick="applySort('name_desc')">Name, Z to A</a>
+                                <a class="dropdown-item" href="#" onclick="applySort('name_desc')">Name, Z to
+                                    A</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" onclick="applySort('price_asc')">Price, low to high</a>
-                                <a class="dropdown-item" href="#" onclick="applySort('price_desc')">Price, high to low</a>
+                                <a class="dropdown-item" href="#" onclick="applySort('price_asc')">Price, low to
+                                    high</a>
+                                <a class="dropdown-item" href="#" onclick="applySort('price_desc')">Price, high to
+                                    low</a>
                             </div>
                             <input type="hidden" name="sort" id="sort-input" />
                         </form>
@@ -62,27 +66,59 @@
                     }
                 </script>
 
-                <div class="row">
-                    @foreach ($products as $item)
-                        <div class="col-sm-6 col-lg-4 text-center item mb-4">
-                            <span class="tag">Sale</span>
-                            <a href="{{ url('storesingle/' . $item->id) }}">
-                                <img src="templates/images/product_01.png" alt="Image">
-                            </a>
-                            <h3 class="text-dark">
-                                <a href="{{ url('storesingle/' . $item->id) }}">{{ $item->name }}</a>
-                            </h3>
-                            <p class="price"><del>{{ $item->price }}</del> &mdash;{{ $item->price }}</p>
-                        </div>
-                    @endforeach
-                </div>
+                    <div class="row">
+    @foreach ($products as $item)
+        <div class="col-sm-6 col-lg-4 text-center item mb-4">
+            @if ($item->sale_price)
+                <span class="tag">Sale</span>
+            @else
+                <span class=""></span>
+            @endif
+
+            <!-- Display Product Images -->
+            <a href="{{ url('storesingle/' . $item->id) }}">
+                @if ($item->images)
+                    @php
+                        $images = json_decode($item->images);
+                    @endphp
+                    @if (!empty($images) && is_array($images))
+                        <img src="{{ asset('products/' . $images[0]) }}" 
+                             alt="{{ $item->name }}" 
+                             class="img-fluid">
+                    @else
+                        <img src="{{ asset('templates/images/default.png') }}" 
+                             alt="Default Image" 
+                             class="img-fluid">
+                    @endif
+                @else
+                    <img src="{{ asset('templates/images/default.png') }}" 
+                         alt="Default Image" 
+                         class="img-fluid">
+                @endif
+            </a>
+
+            <!-- Product Details -->
+            <h3 class="text-dark">
+                <a href="{{ url('storesingle/' . $item->id) }}">{{ $item->name }}</a>
+            </h3>
+            <p class="price">
+                @if ($item->sale_price)
+                    <del>{{ $item->price }} Rs</del> &mdash; {{ $item->sale_price }} Rs
+                @else
+                    {{ $item->price }} Rs
+                @endif
+            </p>
+        </div>
+    @endforeach
+</div>
+
 
                 <div class="row mt-5">
                     <div class="col-md-12 text-center">
                         {{ $products->links('pagination::bootstrap-4') }}
                     </div>
                 </div>
-                
+
             </div>
         </div>
 

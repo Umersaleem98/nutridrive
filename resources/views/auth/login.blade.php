@@ -16,7 +16,7 @@
                         <h3>Login</h3>
                     </div>
                     <div class="card-body">
-                        <form action="{{ url('login') }}" method="POST">
+                        <form action="{{ url('userlogin') }}" method="POST">
                             @csrf
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email</label>
@@ -31,7 +31,7 @@
                             </div>
                         </form>
                         <div class="mt-3 text-center">
-                            <a href="{{ url('register') }}" class="text-decoration-none">Don't have an account? Register</a>
+                            <a href="{{ url('userregister') }}" class="text-decoration-none">Don't have an account? Register</a>
                         </div>
                     </div>
                 </div>

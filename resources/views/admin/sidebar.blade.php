@@ -20,7 +20,7 @@
             </a>
           </li>
           <li>
-            <a href="{{ url('products') }}">
+            <a href="{{ url('products_list') }}">
               <i class="bi bi-circle"></i><span>Product List</span>
             </a>
           </li>

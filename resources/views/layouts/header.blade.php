@@ -13,7 +13,10 @@
       <div class="d-flex align-items-center justify-content-between">
         <div class="logo">
           <div class="site-logo">
-            <a href="{{ url('/') }}" class="js-logo-clone">Pharma</a>
+            <a href="{{ url('/') }}" class="js-logo-clone">
+              <img src="{{ asset('templates/images/logo.png') }}" alt="Nutri-drive Logo" style="height: 50px;">
+          </a>
+          
           </div>
         </div>
         <div class="main-nav d-none d-lg-block">
@@ -44,17 +47,17 @@
               <!-- Conditional Login/Register/Logout Links -->
               @if(Auth::check()) <!-- If user is logged in -->
                 <li class="nav-item">
-                    <form action="{{ url('logout') }}" method="POST" class="d-inline">
+                    <form action="{{ url('userlogout') }}" method="POST" class="d-inline">
                         @csrf
                         <button type="submit" class="btn btn-link nav-link" style="border: none; padding: 0;">Logout</button>
                     </form>
                 </li>
               @else <!-- If user is not logged in -->
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url('login') }}">Login</a>
+                    <a class="nav-link" href="{{ url('userlogin') }}">Login</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url('register') }}">Register</a>
+                    <a class="nav-link" href="{{ url('userregister') }}">Register</a>
                 </li>
               @endif
             </ul>

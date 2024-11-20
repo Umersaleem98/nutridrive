@@ -5,22 +5,15 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\AuthDashboartController;
 use App\Http\Controllers\DashboardProductController;
 use App\Http\Controllers\DashboardCategoryController;
 
 // Auth Routes 
-Route::get('login', [AuthController::class, 'showLogin'])->name('login');
-Route::post('login', [AuthController::class, 'login']);
-Route::get('register', [AuthController::class, 'showRegister'])->name('register');
-Route::post('register', [AuthController::class, 'register']);
-
-// Route::get('/', function () {
-
-//     $products = Product::paginate(9); // Fetch 9 products per page
-//     return view('index', ['products' => $products]);
-// })->middleware('auth');
-
-
+Route::get('userlogin', [AuthController::class, 'showLogin'])->name('login');
+Route::post('userlogin', [AuthController::class, 'login']);
+Route::get('userregister', [AuthController::class, 'showRegister'])->name('register');
+Route::post('userregister', [AuthController::class, 'register']);
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/', function () {
@@ -33,7 +26,7 @@ Route::get('/', function () {
     return view('index', ['products' => $products]);
 });
 
-Route::post('logout', [AuthController::class, 'logout'])->name('logout');
+Route::post('userlogout', [AuthController::class, 'logout'])->name('logout');
 
 // Pages routes 
 Route::get('store', [HomeController::class, 'storepage'])->name('store');
@@ -46,13 +39,24 @@ Route::post('add-to-cart/{productId}', [HomeController::class, 'addToCart'])->na
 
 Route::get('checkout', [HomeController::class, 'checkoutpage'])->name('checkout');
 
-
 // Dashboard Routes 
-Route::get('admindashboard', [DashboardController::class, 'index']);
+
+// Route::get('login', [AuthDashboartController::class, 'loginpage']);
+Route::get('/login', [AuthDashboartController::class, 'showLoginForm']);
+Route::post('/login', [AuthDashboartController::class, 'login']);
+Route::get('/logout', [AuthDashboartController::class, 'logout']);
+
+// Route::get('admindashboard', [DashboardController::class, 'index']);
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware('auth');
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware('admin');
 
 // Dashboard Products routes 
 
-Route::get('products', [DashboardProductController::class, 'show']);
+Route::get('products_list', [DashboardProductController::class, 'show']);
 // Route::get('products', [DashboardProductController::class, 'show']);
 Route::get('/create', [DashboardProductController::class, 'index']);
 Route::post('/store', [DashboardProductController::class, 'store']);
