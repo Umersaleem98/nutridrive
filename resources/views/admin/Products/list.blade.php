@@ -80,43 +80,43 @@
                         </tr>
                       </thead>
                       <tbody>
-                        @foreach($products as $product)
-                          <tr>
-                            <th scope="row">{{ $product->id }}</th>
-                            <td>{{ $product->name }}</td>
-                            <td>{{ $product->category->name }}</td>
-                            <td>${{ $product->price }}</td>
-                            <td>${{ $product->sale_price ?? 'N/A' }}</td> <!-- Display Sale Price -->
-                            <td>{{ $product->stock }}</td>
-                            <td>
-                              @if($product->images)
-                                @php
-                                  $images = json_decode($product->images);
-                                @endphp
-                                @foreach($images as $image)
-                                  <img src="{{ asset('products/' . $image) }}" alt="Product Image" width="50" height="50" class="img-thumbnail">
-                                @endforeach
-                              @else
-                                N/A
-                              @endif
-                            </td>
-                            <td>
-                              <span class="badge {{ $product->status == 'active' ? 'bg-success' : 'bg-danger' }}">
-                                {{ ucfirst($product->status) }}
-                              </span>
-                            </td>
-                            <td>{{ \Illuminate\Support\Str::limit($product->description, 30) }}</td>
-
-                            <td>
-                              <!-- Edit Button -->
-                              <a href="{{ url('edit/'.$product->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                              
-                              <!-- Delete Button -->
-                              <a href="{{ url('delete/'.$product->id) }}" class="btn btn-danger btn-sm">Delete</a>
-                            </td>
-                          </tr>
-                        @endforeach
-                      </tbody>
+                        @if($products && $products->count() > 0)
+                            @foreach($products as $product)
+                                <tr>
+                                    <th scope="row">{{ $product->id }}</th>
+                                    <td>{{ $product->name }}</td>
+                                    <td>{{ $product->category->name ?? 'Uncategorized' }}</td>
+                                    <td>${{ $product->price }}</td>
+                                    <td>${{ $product->sale_price ?? 'N/A' }}</td>
+                                    <td>{{ $product->stock }}</td>
+                                    <td>
+                                      @php
+                                          $images = json_decode($product->images, true);
+                                          $image = $images[0] ?? 'templates/images/product_02.png'; // Fallback to default image
+                                      @endphp
+                                      <img src="{{ asset($image) }}" alt="Product Image" width="50" height="50" class="img-thumbnail">
+                                  </td>
+                                  
+                                  
+                                    <td>
+                                        <span class="badge {{ $product->status == 'active' ? 'bg-success' : 'bg-danger' }}">
+                                            {{ ucfirst($product->status) }}
+                                        </span>
+                                    </td>
+                                    <td>{{ \Illuminate\Support\Str::limit($product->description, 30) }}</td>
+                                    <td>
+                                        <a href="{{ url('edit/'.$product->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                                        <a href="{{ url('delete/'.$product->id) }}" class="btn btn-danger btn-sm">Delete</a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @else
+                            <tr>
+                                <td colspan="10" class="text-center">No products available.</td>
+                            </tr>
+                        @endif
+                    </tbody>
+                    
                     </table>
                     
                     

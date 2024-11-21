@@ -7,7 +7,8 @@
         /* CSS to truncate the description */
         .description {
             display: -webkit-box;
-            -webkit-line-clamp: 4; /* Limit to 4 lines */
+            -webkit-line-clamp: 4;
+            /* Limit to 4 lines */
             -webkit-box-orient: vertical;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -45,29 +46,14 @@
                 <div class="row">
                     <div class="col-md-5 mr-auto">
                         <div class="border text-center">
-                            @if ($products->images)
-                                @php
-                                    $images = json_decode($products->images);
-                                @endphp
-                                @if (!empty($images) && is_array($images))
-                                    <img src="{{ asset('products/' . $images[0]) }}" 
-                                         alt="{{ $products->name }}" 
-                                         class="img-fluid" 
-                                         style="height: 400px;">
-                                @else
-                                    <img src="{{ asset('templates/images/default.png') }}" 
-                                         alt="Default Image" 
-                                         class="img-fluid" 
-                                         style="height: 400px;">
-                                @endif
-                            @else
-                                <img src="{{ asset('templates/images/default.png') }}" 
-                                     alt="Default Image" 
-                                     class="img-fluid" 
-                                     style="height: 400px;">
-                            @endif
+                            @php
+                                $images = json_decode($products->images);
+                                $imagePath = (!empty($images) && is_array($images)) ? 'products/' . $images[0] : 'templates/images/product_02.png';
+                            @endphp
+                            <img src="{{ asset($imagePath) }}" alt="{{ $products->name }}" class="img-fluid" style="height: 400px;">
                         </div>
                     </div>
+                    
                     <div class="col-md-6">
                         <h2 class="text-black">{{ $products->name }}</h2>
 
@@ -88,8 +74,9 @@
                                 <div class="input-group-prepend">
                                     <button class="btn btn-outline-primary js-btn-minus" type="button">&minus;</button>
                                 </div>
-                                <input type="number" name="quantity" class="form-control text-center" value="1" min="1"
-                                    id="product-quantity" aria-label="Quantity" aria-describedby="button-addon1">
+                                <input type="number" name="quantity" class="form-control text-center" value="1"
+                                    min="1" id="product-quantity" aria-label="Quantity"
+                                    aria-describedby="button-addon1">
                                 <div class="input-group-append">
                                     <button class="btn btn-outline-primary js-btn-plus" type="button">&plus;</button>
                                 </div>
@@ -98,47 +85,46 @@
 
                         <!-- Add to Cart Form -->
                         <form action="{{ route('add.to.cart', $products->id) }}" method="POST">
-                          @csrf
-                          <input type="hidden" name="quantity" value="1" id="quantity-input">
-                      
-                          @guest
-                              <!-- Button for guests -->
-                              <button type="button" 
-                                      class="buy-now btn btn-sm height-auto px-4 py-3 btn-primary" 
-                                      data-toggle="modal" 
-                                      data-target="#loginModal">
-                                  Add To Cart
-                              </button>
-                          @else
-                              <!-- Button for authenticated users -->
-                              <button type="submit" 
-                                      class="buy-now btn btn-sm height-auto px-4 py-3 btn-primary">
-                                  Add To Cart
-                              </button>
-                          @endguest
-                      </form>
-                      
+                            @csrf
+                            <input type="hidden" name="quantity" value="1" id="quantity-input">
 
-                      <!-- Login Modal -->
-<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-      <div class="modal-content">
-          <div class="modal-header">
-              <h5 class="modal-title" id="loginModalLabel">Login Required</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-              </button>
-          </div>
-          <div class="modal-body">
-              You need to log in to add items to your cart.
-          </div>
-          <div class="modal-footer">
-              <a href="{{ route('login') }}" class="btn btn-primary">Login</a>
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          </div>
-      </div>
-  </div>
-</div>
+                            @guest
+                                <!-- Button for guests -->
+                                <button type="button" class="buy-now btn btn-sm height-auto px-4 py-3 btn-primary"
+                                    data-toggle="modal" data-target="#loginModal">
+                                    Add To Cart
+                                </button>
+                            @else
+                                <!-- Button for authenticated users -->
+                                <button type="submit" class="buy-now btn btn-sm height-auto px-4 py-3 btn-primary">
+                                    Add To Cart
+                                </button>
+                            @endguest
+                        </form>
+
+
+                        <!-- Login Modal -->
+                        <div class="modal fade" id="loginModal" tabindex="-1" role="dialog"
+                            aria-labelledby="loginModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="loginModalLabel">Login Required</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        You need to log in to add items to your cart.
+                                    </div>
+                                    <div class="modal-footer">
+                                        <a href="{{ route('login') }}" class="btn btn-primary">Login</a>
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
 
                         <div class="mt-5">
@@ -165,7 +151,7 @@
 
     <script>
         // Update quantity input value when buttons are clicked
-        document.querySelector('.js-btn-minus').addEventListener('click', function () {
+        document.querySelector('.js-btn-minus').addEventListener('click', function() {
             let quantityInput = document.querySelector('#product-quantity');
             let currentQuantity = parseInt(quantityInput.value);
             if (currentQuantity > 1) {
@@ -174,7 +160,7 @@
             }
         });
 
-        document.querySelector('.js-btn-plus').addEventListener('click', function () {
+        document.querySelector('.js-btn-plus').addEventListener('click', function() {
             let quantityInput = document.querySelector('#product-quantity');
             let currentQuantity = parseInt(quantityInput.value);
             quantityInput.value = currentQuantity + 1;
@@ -182,11 +168,11 @@
         });
 
         // Toggle Read More / Read Less
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             const description = document.getElementById('description');
             const readMoreBtn = document.getElementById('read-more-btn');
 
-            readMoreBtn.addEventListener('click', function () {
+            readMoreBtn.addEventListener('click', function() {
                 if (description.classList.contains('description')) {
                     description.classList.remove('description');
                     readMoreBtn.textContent = 'Read Less';

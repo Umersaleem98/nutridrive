@@ -79,7 +79,7 @@
 
 
 
-    <div class="site-section bg-primary">
+    {{-- <div class="site-section bg-primary">
       <div class="container">
         <div class="row">
           <div class="col-12">
@@ -87,8 +87,9 @@
           </div>
           <div class="col-lg-4">
             <div class="p-4 bg-white mb-3 rounded">
-              <span class="d-block text-black h6 text-uppercase">New York</span>
-              <p class="mb-0">203 Fake St. Mountain View, San Francisco, California, USA</p>
+              <span class="d-block text-black h6 text-uppercase">Rawalpindi</span>
+              <p class="mb-0">P-1645-Eidgah Shareef
+                Rawalpindi</p>
             </div>
           </div>
           <div class="col-lg-4">
@@ -106,7 +107,7 @@
         </div>
       </div>
       
-    </div>
+    </div> --}}
 
 @include('layouts.footer')
   </div>

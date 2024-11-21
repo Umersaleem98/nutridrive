@@ -77,26 +77,13 @@
 
             <!-- Display Product Images -->
             <a href="{{ url('storesingle/' . $item->id) }}">
-                @if ($item->images)
-                    @php
-                        $images = json_decode($item->images);
-                    @endphp
-                    @if (!empty($images) && is_array($images))
-                        <img src="{{ asset('products/' . $images[0]) }}" 
-                             alt="{{ $item->name }}" 
-                             class="img-fluid">
-                    @else
-                        <img src="{{ asset('templates/images/default.png') }}" 
-                             alt="Default Image" 
-                             class="img-fluid">
-                    @endif
-                @else
-                    <img src="{{ asset('templates/images/default.png') }}" 
-                         alt="Default Image" 
-                         class="img-fluid">
-                @endif
+                @php
+                    $images = json_decode($item->images);
+                    $imagePath = (!empty($images) && is_array($images)) ? 'products/' . $images[0] : 'templates/images/product_02.png';
+                @endphp
+                <img src="{{ asset($imagePath) }}" alt="{{ $item->name }}" class="img-fluid">
             </a>
-
+            
             <!-- Product Details -->
             <h3 class="text-dark">
                 <a href="{{ url('storesingle/' . $item->id) }}">{{ $item->name }}</a>

@@ -10,7 +10,8 @@ class DashboardProductController extends Controller
 {
     public function show()
     {
-        $products = Product::all();
+        $products = Product::with('category')->get();
+        // dd($products); 
         return view('admin.Products.list', compact('products'));
     }
    
@@ -86,4 +87,11 @@ public function update(Request $request, $id)
     return redirect('products')->with('success', 'Product updated successfully.');
 }
 
+public function destroy($id)
+{
+    $category = Product::find($id);
+    $category->delete();
+
+    return redirect()->back()->with('success', 'Category deleted successfully.');
+}
 }

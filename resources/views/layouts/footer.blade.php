@@ -22,8 +22,11 @@
         <div class="block-5 mb-5">
           <h3 class="footer-heading mb-4 text-light">Contact Info</h3>
           <ul class="list-unstyled">
-            <li class="address text-light">203 Fake St. Mountain View, San Francisco, California, USA</li>
-            <li class="phone text-light"><a href="tel://23923929210" class="text-light">+2 392 3929 210</a></li>
+            <li class="address text-light">P-1645-Eidgah Shareef
+              Rawalpindi
+              </li>
+            <li class="phone text-light"><a href="tel://03346943334" class="text-light">03346943334</a></li>
+            <li class="phone text-light"><a href="tel://03366322331" class="text-light">03366322331</a></li>
             <li class="email text-light">emailaddress@domain.com</li>
           </ul>
         </div>

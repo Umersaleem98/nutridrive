@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AuthDashboartController;
+use App\Http\Controllers\UserDashboartController;
 use App\Http\Controllers\DashboardProductController;
 use App\Http\Controllers\DashboardCategoryController;
 
@@ -45,11 +46,6 @@ Route::get('checkout', [HomeController::class, 'checkoutpage'])->name('checkout'
 Route::get('/login', [AuthDashboartController::class, 'showLoginForm']);
 Route::post('/login', [AuthDashboartController::class, 'login']);
 Route::get('/logout', [AuthDashboartController::class, 'logout']);
-
-// Route::get('admindashboard', [DashboardController::class, 'index']);
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware('auth');
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware('admin');
@@ -62,6 +58,7 @@ Route::get('/create', [DashboardProductController::class, 'index']);
 Route::post('/store', [DashboardProductController::class, 'store']);
 Route::get('/edit/{id}', [DashboardProductController::class, 'edit']);
 Route::post('/update/{id}', [DashboardProductController::class, 'update']);
+Route::get('/delete/{id}', [DashboardProductController::class, 'destroy']);
 
 // Dashboard Category routes 
 
@@ -71,3 +68,12 @@ Route::post('store_category', [DashboardCategoryController::class, 'store']);
 Route::get('categories_edit/{id}', [DashboardCategoryController::class, 'edit']);
 Route::post('update_category/{id}', [DashboardCategoryController::class, 'update']);
 Route::get('categories_delete/{id}', [DashboardCategoryController::class, 'destroy']);
+
+// Dashboard User Routes 
+
+Route::get('user_list', [UserDashboartController::class, 'index']);
+Route::get('add_user', [UserDashboartController::class, 'create']);
+Route::post('add_user', [UserDashboartController::class, 'store']);
+Route::get('edit_user/{id}', [UserDashboartController::class, 'edit']);
+Route::post('update/{id}', [UserDashboartController::class, 'update']);
+Route::get('delete_user/{id}', [UserDashboartController::class, 'delete']);

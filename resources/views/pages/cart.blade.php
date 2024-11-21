@@ -41,10 +41,14 @@
                                     @forelse ($cartItems as $item)
                                         <tr>
                                             <td class="product-thumbnail">
-                                                <img src="{{ asset('images/products/' . $item->product->image) }}" 
+                                                @php
+                                                    $imagePath = isset($item->product->image) && $item->product->image ? 'images/products/' . $item->product->image : 'templates/images/product_02.png';
+                                                @endphp
+                                                <img src="{{ asset($imagePath) }}" 
                                                      alt="{{ $item->product->name }}" 
                                                      class="img-fluid">
                                             </td>
+                                            
                                             <td class="product-name">
                                                 <h2 class="h5 text-black">{{ $item->product->name }}</h2>
                                             </td>
@@ -95,7 +99,7 @@
                                 <button class="btn btn-primary btn-md btn-block">Update Cart</button>
                             </div> --}}
                             <div class="col-md-6">
-                                <a href="{{ url('/') }}" class="btn btn-outline-primary btn-md btn-block">Continue Shopping</a>
+                                <a href="{{ url('/store') }}" class="btn btn-outline-primary btn-md btn-block">Continue Shopping</a>
                             </div>
                         </div>
                         
