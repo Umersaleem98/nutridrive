@@ -20,15 +20,28 @@
                 </div>
             </div>
         </div>
-
+        @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+    
+    @if(session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
+    
         <div class="site-section">
             <div class="container">
                 <div class="row mb-5">
-                    <form class="col-md-12" method="post">
+                    <form class="col-md-12" method="post" action="{{ url('cart_delete_selected') }}">
+                        @csrf
                         <div class="site-blocks-table">
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
+                                        <th><input type="checkbox" id="selectAll" class="form-check-input"></th>
                                         <th class="product-thumbnail">Image</th>
                                         <th class="product-name">Product</th>
                                         <th class="product-price">Price</th>
@@ -40,6 +53,7 @@
                                 <tbody>
                                     @forelse ($cartItems as $item)
                                         <tr>
+                                            <td><input type="checkbox" name="selected_items[]" value="{{ $item->id }}" class="form-check-input"></td>
                                             <td class="product-thumbnail">
                                                 @php
                                                     $imagePath = isset($item->product->image) && $item->product->image ? 'images/products/' . $item->product->image : 'templates/images/product_02.png';
@@ -58,36 +72,32 @@
                                                     <div class="input-group-prepend">
                                                         <button class="btn btn-outline-primary js-btn-minus" 
                                                                 type="button" 
-                                                                data-id="{{ $item->id }}">
-                                                            &minus;
-                                                        </button>
+                                                                data-id="{{ $item->id }}">&minus;</button>
                                                     </div>
-                                                    <input type="text" 
-                                                           class="form-control text-center" 
-                                                           value="{{ $item->quantity }}" 
-                                                           readonly>
+                                                    <input type="text" class="form-control text-center" value="{{ $item->quantity }}" readonly>
                                                     <div class="input-group-append">
                                                         <button class="btn btn-outline-primary js-btn-plus" 
                                                                 type="button" 
-                                                                data-id="{{ $item->id }}">
-                                                            &plus;
-                                                        </button>
+                                                                data-id="{{ $item->id }}">&plus;</button>
                                                     </div>
                                                 </div>
                                             </td>
                                             <td>${{ number_format($item->product->price * $item->quantity, 2) }}</td>
                                             <td>
-                                                <a href="{{ url('cart.remove', $item->id) }}" 
-                                                   class="btn btn-primary height-auto btn-sm">X</a>
+                                                <a href="{{ url('cart_remove', $item->id) }}" class="btn btn-primary height-auto btn-sm">X</a>
                                             </td>
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td colspan="6" class="text-center">Your cart is empty!</td>
+                                            <td colspan="7" class="text-center">Your cart is empty!</td>
                                         </tr>
                                     @endforelse
                                 </tbody>
                             </table>
+                        </div>
+                        <!-- Add a button to delete selected items -->
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-danger">Delete Selected</button>
                         </div>
                     </form>
                 </div>
@@ -95,14 +105,10 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="row mb-5">
-                            {{-- <div class="col-md-6 mb-3 mb-md-0">
-                                <button class="btn btn-primary btn-md btn-block">Update Cart</button>
-                            </div> --}}
                             <div class="col-md-6">
                                 <a href="{{ url('/store') }}" class="btn btn-outline-primary btn-md btn-block">Continue Shopping</a>
                             </div>
                         </div>
-                        
                     </div>
                     <div class="col-md-6 pl-5">
                         <div class="row justify-content-end">
@@ -151,6 +157,16 @@
     </div>
 
     @include('layouts.script')
+
+    <script>
+        // Select/Deselect all checkboxes functionality
+        document.getElementById('selectAll').addEventListener('change', function () {
+            let checkboxes = document.querySelectorAll('input[name="selected_items[]"]');
+            checkboxes.forEach(function (checkbox) {
+                checkbox.checked = this.checked;
+            });
+        });
+    </script>
 </body>
 
 </html>

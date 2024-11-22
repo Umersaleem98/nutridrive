@@ -110,7 +110,29 @@ class HomeController extends Controller
         return redirect()->route('cart')->with('success', 'Product added to cart!');
     }
     
+    public function cartremove($id)
+    {
+        $cart = Cart::find($id); // Find the cart item by ID
+    
+        if ($cart) {
+            $cart->delete(); // Delete the cart item
+            return redirect()->back()->with('success', 'Cart item deleted successfully.');
+        } else {
+            return redirect()->back()->with('error', 'Cart item not found.');
+        }
+    }
 
+    public function deleteSelected(Request $request)
+{
+    $selectedItems = $request->input('selected_items', []);
+    
+    if (!empty($selectedItems)) {
+        Cart::whereIn('id', $selectedItems)->delete();
+        return redirect()->back()->with('success', 'Selected items deleted successfully!');
+    }
+
+    return redirect()->back()->with('error', 'No items selected!');
+}
 
     public function checkoutpage()
     {

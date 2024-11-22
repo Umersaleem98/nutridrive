@@ -36,6 +36,9 @@ Route::get('storesingle/{id}', [HomeController::class, 'single_storepage'])->nam
 Route::get('about', [HomeController::class, 'aboutpage'])->name('about');
 Route::get('contact', [HomeController::class, 'contactpage'])->name('contact');
 Route::get('cart', [HomeController::class, 'cartpage'])->name('cart');
+Route::get('cart_remove/{id}', [HomeController::class, 'cartremove']);
+Route::post('cart_delete_selected', [HomeController::class, 'deleteSelected'])->name('cart.deleteSelected');
+
 Route::post('add-to-cart/{productId}', [HomeController::class, 'addToCart'])->name('add.to.cart');
 
 Route::get('checkout', [HomeController::class, 'checkoutpage'])->name('checkout');
