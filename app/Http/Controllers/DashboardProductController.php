@@ -17,75 +17,119 @@ class DashboardProductController extends Controller
    
     public function index()
     {
+        // dd();
+
         $categories = Category::all();
         return view('admin.Products.index', compact('categories'));
     }
 
     public function store(Request $request)
-{
-    $request->validate([
-        'name' => 'required|string|max:255',
-        'category_id' => 'required|exists:categories,id',
-        'price' => 'required|numeric|min:0',
-        'sale_price' => 'nullable|numeric|min:0',
-        'stock' => 'required|integer|min:0',
-        'description' => 'required|string',
-        'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
-        'status' => 'required|in:active,inactive',
-    ]);
-
-    // Initialize an array to store image paths
-    $imageNames = [];
-
-    // Handle file uploads
-    if ($request->hasFile('images')) {
-        foreach ($request->file('images') as $image) {
-            $imageName = time() . '-' . uniqid() . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('products'), $imageName);
-            $imageNames[] = $imageName; // Store image names
+    {
+        // Initialize an array to store image paths
+        $imageNames = [];
+    
+        // Check if 'images' input exists and if files are uploaded
+        if ($request->hasFile('images')) {
+            // Ensure the 'products' directory exists, create if it doesn't
+            $directory = public_path('products');
+            if (!is_dir($directory)) {
+                mkdir($directory, 0777, true); // Create the directory with permissions
+            }
+    
+            // Loop through the uploaded files
+            foreach ($request->file('images') as $image) {
+                // Generate a unique name for each image
+                $imageName = time() . '-' . uniqid() . '.' . $image->getClientOriginalExtension();
+                
+                // Move the image to the 'public/products' directory
+                $image->move($directory, $imageName);
+                
+                // Add the image name to the array
+                $imageNames[] = $imageName;
+            }
         }
+    
+        // Create a new product instance and fill its fields
+        $product = new Product();
+        $product->name = $request->name;
+        $product->category_id = $request->category_id;
+        $product->price = $request->price;
+        $product->sale_price = $request->sale_price;
+        $product->stock = $request->stock;
+        $product->description = $request->description;
+    
+        // Store the image names as a JSON-encoded string
+        $product->images = json_encode($imageNames);
+    
+        // Set the product status
+        $product->status = $request->status;
+    
+        // Save the product to the database
+        $product->save();
+    
+        // Redirect back with a success message
+        return redirect()->back()->with('success', 'Product added successfully!');
     }
-
-    // Save product
-    Product::create([
-        'name' => $request->name,
-        'category_id' => $request->category_id,
-        'price' => $request->price,
-        'sale_price' => $request->sale_price,
-        'stock' => $request->stock,
-        'description' => $request->description,
-        'images' => json_encode($imageNames), // Store JSON of image names
-        'status' => $request->status,
-    ]);
-
-    return redirect()->back()->with('success', 'Product added successfully!');
-}
+    
+    
 
 
 
 public function edit($id)
 {
-    $products = Product::find($id);
+    $product = Product::find($id);
     $categories = Category::all(); // Fetch all categories
-    return view('admin.Products.edit',  compact('products', 'categories'));
+    return view('admin.Products.edit',  compact('product', 'categories'));
 }
-
 
 public function update(Request $request, $id)
 {
-    $product = Product::find($id);
-    $request->validate([
-        'name' => 'required|string|max:255',
-        'category_id' => 'required|exists:categories,id',
-        'price' => 'required|numeric',
-        'stock' => 'required|integer',
-        'description' => 'required|string',
-    ]);
+    // Find the product by its ID
+    $product = Product::findOrFail($id);
 
-    $product->update($request->all());
+    // Store current image(s) before deletion, if necessary
+    $existingImages = $product->images; // Assuming the images are stored as an array or a JSON field
 
-    return redirect('products')->with('success', 'Product updated successfully.');
+    // Update product details
+    $product->name = $request->name;
+    $product->category_id = $request->category_id;
+    $product->price = $request->price;
+    $product->sale_price = $request->sale_price;
+    $product->stock = $request->stock;
+    $product->description = $request->description;
+    $product->status = $request->status;
+
+    // Handle image upload if new images are provided
+    if ($request->hasFile('images')) {
+        // Delete existing images first (assuming they are stored on the server)
+        if ($existingImages) {
+            foreach ($existingImages as $image) {
+                $imagePath = public_path('uploads/products/' . $image); // Path where images are stored
+                if (file_exists($imagePath)) {
+                    unlink($imagePath); // Delete the image file
+                }
+            }
+        }
+
+        // Upload new images and store them
+        $imagePaths = [];
+        foreach ($request->file('images') as $image) {
+            $imageName = time() . '_' . $image->getClientOriginalName();
+            $image->move(public_path('uploads/products'), $imageName);
+            $imagePaths[] = $imageName;
+        }
+
+        // Update the product with new image paths (assuming storing as array or JSON)
+        $product->images = $imagePaths;
+    }
+
+    // Save the updated product
+    $product->save();
+
+    return redirect()->back()->with('success', 'Product updated successfully!');
 }
+
+
 
 public function destroy($id)
 {
