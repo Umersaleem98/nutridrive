@@ -60,18 +60,18 @@ a {
     box-shadow: none; }
   .btn.btn-primary:hover {
     background: transparent;
-    color: #DC3545; }
+    color: #b67cdf; }
   .btn.btn-black {
     background: #000;
     color: #fff; }
     .btn.btn-black:hover, .btn.btn-black:active, .btn.btn-black:focus {
-      background-color: #DC3545;
+      background-color: #b67cdf;
       color: #000; }
 
 .form-control {
   height: 43px; }
   .form-control:active, .form-control:focus {
-    border-color: #DC3545; }
+    border-color: #b67cdf; }
   .form-control:hover, .form-control:active, .form-control:focus {
     -webkit-box-shadow: none !important;
     box-shadow: none !important; }
@@ -96,7 +96,7 @@ a {
     position: absolute;
     width: 40px;
     height: 2px;
-    background: #DC3545; }
+    background: #b67cdf; }
   .site-section-heading.text-center:before {
     display: none;
     content: "";
@@ -108,7 +108,7 @@ a {
     position: absolute;
     width: 40px;
     height: 2px;
-    background: #DC3545; }
+    background: #b67cdf; }
 
 .border-top {
   border-top: 1px solid #edf0f5 !important; }
@@ -120,7 +120,7 @@ a {
     .site-footer ul li a {
       color: #5c626e; }
       .site-footer ul li a:hover {
-        color: #DC3545; }
+        color: #b67cdf; }
   .site-footer .footer-heading {
     font-size: 1.2rem;
     color: #000;
@@ -215,7 +215,7 @@ a {
           border-radius: 50%;
           display: block;
           text-align: center;
-          background: #DC3545;
+          background: #b67cdf;
           color: #fff;
           -webkit-transition: .2s all ease-in-out;
           -o-transition: .2s all ease-in-out;
@@ -280,7 +280,7 @@ a {
         top: 100%;
         position: absolute;
         text-align: left;
-        border-top: 2px solid #DC3545;
+        border-top: 2px solid #b67cdf;
         -webkit-box-shadow: 0 0px 4px 0px rgba(0, 0, 0, 0.05);
         box-shadow: 0 0px 4px 0px rgba(0, 0, 0, 0.05);
         border-left: 1px solid #edf0f5;
@@ -301,7 +301,7 @@ a {
           -o-transition: 0s all;
           transition: 0s all; }
         .site-navbar .site-navigation .site-menu .has-children .dropdown .active > a {
-          color: #DC3545 !important; }
+          color: #b67cdf !important; }
         .site-navbar .site-navigation .site-menu .has-children .dropdown > li {
           list-style: none;
           padding: 0;
@@ -408,12 +408,12 @@ a {
       position: relative;
       color: #212529; }
       .site-mobile-menu .site-nav-wrap a:hover {
-        color: #DC3545; }
+        color: #b67cdf; }
     .site-mobile-menu .site-nav-wrap li {
       position: relative;
       display: block; }
       .site-mobile-menu .site-nav-wrap li.active > a {
-        color: #DC3545; }
+        color: #b67cdf; }
     .site-mobile-menu .site-nav-wrap .arrow-collapse {
       position: absolute;
       right: 0px;
@@ -629,7 +629,7 @@ a {
       margin: 5px;
       background: #ccc; }
     .block-3 .owl-dots .owl-dot.active > span {
-      background: #DC3545; }
+      background: #b67cdf; }
 
 .block-3 .product {
   border-right: none !important;
@@ -666,7 +666,7 @@ a {
     left: 0;
     font-size: 20px;
     line-height: 1;
-    color: #DC3545; }
+    color: #b67cdf; }
   .block-5 ul li.address:before {
     content: "\e8b4"; }
   .block-5 ul li.email:before {
@@ -723,7 +723,7 @@ a {
     vertical-align: middle;
     color: #212529; }
   .site-blocks-table tbody tr:first-child td {
-    border-top: 1px solid #DC3545 !important; }
+    border-top: 1px solid #b67cdf !important; }
 
 .site-block-order-table th {
   border-top: none !important;
@@ -777,11 +777,11 @@ a {
     height: 16px;
     border-radius: 50%;
     border: none !important;
-    background: #DC3545; }
+    background: #b67cdf; }
     #slider-range .ui-slider-handle:focus, #slider-range .ui-slider-handle:active {
       outline: none; }
   #slider-range .ui-slider-range {
-    background-color: #DC3545; }
+    background-color: #b67cdf; }
 
 .color-item .color {
   width: 14px;
@@ -841,7 +841,7 @@ a {
     line-height: 20px;
     color: #000;
     font-size: 12px;
-    background: #DC3545;
+    background: #b67cdf;
     right: -5px; }
 
 .search-wrap {
@@ -890,7 +890,7 @@ a {
 
 .title-section h2 {
   padding-left: 30px;
-  border-left: 4px solid #DC3545;
+  border-left: 4px solid #b67cdf;
   display: inline-block;
   color: #000; }
 
@@ -909,7 +909,7 @@ a {
     transform: translateX(-50%);
     width: 70px;
     height: 4px;
-    background: #DC3545;
+    background: #b67cdf;
     content: ""; }
 
 .product-item {

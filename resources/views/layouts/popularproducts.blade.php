@@ -23,7 +23,7 @@
     top: 10px;
     left: 10px;
     background-color: red;
-    color: white;
+    color: rgb(17, 13, 13);
     padding: 5px 10px;
     font-size: 14px;
     font-weight: bold;
@@ -34,7 +34,7 @@
   <div class="container">
       <div class="row">
           <div class="title-section text-center col-12">
-              <h2 class="text-uppercase">Popular Products</h2>
+              <h2 class="text-uppercase" style="font-size: 2.5rem; font-weight: bold; border-bottom: 4px solid #69378C; display: inline-block; padding-bottom: 10px;">Popular Products</h2>
           </div>
       </div>
 
@@ -59,7 +59,7 @@
 
       <div class="row mt-5">
           <div class="col-12 text-center">
-              <a href="{{ url('store') }}" class="btn btn-primary px-4 py-3">View All Products</a>
+              <a href="{{ url('store') }}" class="btn btn-primary px-4 py-3 text-light">View All Products</a>
           </div>
       </div>
   </div>
