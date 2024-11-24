@@ -18,12 +18,12 @@ Route::post('userregister', [AuthController::class, 'register']);
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/', function () {
-        $products = Product::paginate(9); // Fetch 9 products per page
+        $products = Product::paginate(6); // Fetch 9 products per page
         return view('index', ['products' => $products]);
     });
 });
 Route::get('/', function () {
-    $products = Product::paginate(9); // Fetch 9 products per page
+    $products = Product::paginate(6); // Fetch 9 products per page
     return view('index', ['products' => $products]);
 });
 
@@ -60,7 +60,7 @@ Route::get('products_list', [DashboardProductController::class, 'show']);
 Route::get('/create', [DashboardProductController::class, 'index']);
 Route::post('/store', [DashboardProductController::class, 'store']);
 Route::get('/edit/{id}', [DashboardProductController::class, 'edit']);
-Route::post('/update/{id}', [DashboardProductController::class, 'update']);
+Route::post('/updateproduct/{id}', [DashboardProductController::class, 'update']);
 Route::get('/delete/{id}', [DashboardProductController::class, 'destroy']);
 
 // Dashboard Category routes 

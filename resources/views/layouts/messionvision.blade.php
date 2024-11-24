@@ -9,7 +9,7 @@
             </p>
         </div>
         <div class="col-md-6 text-center">
-            <img src="templates/images/ourpromis.png" 
+            <img src="templates/images/mission.png" 
                  alt="Mission Statement Image" 
                  class="img-fluid rounded" 
                  style="max-height: 300px; object-fit: cover; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);">
@@ -26,7 +26,7 @@
             </p>
         </div>
         <div class="col-md-6 text-center order-md-1">
-            <img src="templates/images/ourpromis.png" 
+            <img src="templates/images/vivion.png" 
                  alt="Our Vision Image" 
                  class="img-fluid rounded" 
                  style="max-height: 300px; object-fit: cover; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);">

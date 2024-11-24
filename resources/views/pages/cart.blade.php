@@ -20,18 +20,19 @@
                 </div>
             </div>
         </div>
+
         @if(session('success'))
         <div class="alert alert-success">
             {{ session('success') }}
         </div>
-    @endif
+        @endif
     
-    @if(session('error'))
+        @if(session('error'))
         <div class="alert alert-danger">
             {{ session('error') }}
         </div>
-    @endif
-    
+        @endif
+
         <div class="site-section">
             <div class="container">
                 <div class="row mb-5">
@@ -52,50 +53,61 @@
                                 </thead>
                                 <tbody>
                                     @forelse ($cartItems as $item)
-                                        <tr>
-                                            <td><input type="checkbox" name="selected_items[]" value="{{ $item->id }}" class="form-check-input"></td>
-                                            <td class="product-thumbnail">
-                                                @php
-                                                    $imagePath = isset($item->product->image) && $item->product->image ? 'images/products/' . $item->product->image : 'templates/images/product_02.png';
-                                                @endphp
-                                                <img src="{{ asset($imagePath) }}" 
-                                                     alt="{{ $item->product->name }}" 
-                                                     class="img-fluid">
-                                            </td>
-                                            
-                                            <td class="product-name">
-                                                <h2 class="h5 text-black">{{ $item->product->name }}</h2>
-                                            </td>
-                                            <td>${{ number_format($item->product->price, 2) }}</td>
-                                            <td>
-                                                <div class="input-group mb-3" style="max-width: 120px;">
-                                                    <div class="input-group-prepend">
-                                                        <button class="btn btn-outline-primary js-btn-minus" 
-                                                                type="button" 
-                                                                data-id="{{ $item->id }}">&minus;</button>
-                                                    </div>
-                                                    <input type="text" class="form-control text-center" value="{{ $item->quantity }}" readonly>
-                                                    <div class="input-group-append">
-                                                        <button class="btn btn-outline-primary js-btn-plus" 
-                                                                type="button" 
-                                                                data-id="{{ $item->id }}">&plus;</button>
-                                                    </div>
+                                    <tr>
+                                        <td><input type="checkbox" name="selected_items[]" value="{{ $item->id }}" class="form-check-input"></td>
+
+                                        <!-- Product Image -->
+                                        <td class="product-thumbnail">
+                                            @php
+                                                $images = json_decode($item->product->images);
+                                                $imagePath = (!empty($images) && is_array($images)) ? 'products/' . $images[0] : 'templates/images/product_02.png';
+                                            @endphp
+                                            <img src="{{ asset($imagePath) }}" alt="{{ $item->product->name }}" class="img-fluid" style="height: 100px;">
+                                        </td>
+
+                                        <!-- Product Name -->
+                                        <td class="product-name">
+                                            <h2 class="h5 text-black">{{ $item->product->name }}</h2>
+                                        </td>
+
+                                        <!-- Product Price -->
+                                        <td>${{ number_format($item->product->price, 2) }}</td>
+
+                                        <!-- Product Quantity -->
+                                        <td>
+                                            <div class="input-group mb-3" style="max-width: 120px;">
+                                                <div class="input-group-prepend">
+                                                    <button class="btn btn-outline-primary js-btn-minus" 
+                                                            type="button" 
+                                                            data-id="{{ $item->id }}">&minus;</button>
                                                 </div>
-                                            </td>
-                                            <td>${{ number_format($item->product->price * $item->quantity, 2) }}</td>
-                                            <td>
-                                                <a href="{{ url('cart_remove', $item->id) }}" class="btn btn-primary height-auto btn-sm">X</a>
-                                            </td>
-                                        </tr>
+                                                <input type="text" class="form-control text-center" value="{{ $item->quantity }}" readonly>
+                                                <div class="input-group-append">
+                                                    <button class="btn btn-outline-primary js-btn-plus" 
+                                                            type="button" 
+                                                            data-id="{{ $item->id }}">&plus;</button>
+                                                </div>
+                                            </div>
+                                        </td>
+
+                                        <!-- Product Total -->
+                                        <td>${{ number_format($item->product->price * $item->quantity, 2) }}</td>
+
+                                        <!-- Product Remove -->
+                                        <td>
+                                            <a href="{{ url('cart_remove', $item->id) }}" class="btn btn-primary height-auto btn-sm">X</a>
+                                        </td>
+                                    </tr>
                                     @empty
-                                        <tr>
-                                            <td colspan="7" class="text-center">Your cart is empty!</td>
-                                        </tr>
+                                    <tr>
+                                        <td colspan="7" class="text-center">Your cart is empty!</td>
+                                    </tr>
                                     @endforelse
                                 </tbody>
                             </table>
                         </div>
-                        <!-- Add a button to delete selected items -->
+
+                        <!-- Delete Selected Button -->
                         <div class="form-group">
                             <button type="submit" class="btn btn-danger">Delete Selected</button>
                         </div>
@@ -110,6 +122,8 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- Cart Totals -->
                     <div class="col-md-6 pl-5">
                         <div class="row justify-content-end">
                             <div class="col-md-7">
@@ -159,7 +173,6 @@
     @include('layouts.script')
 
     <script>
-        // Select/Deselect all checkboxes functionality
         document.getElementById('selectAll').addEventListener('change', function () {
             let checkboxes = document.querySelectorAll('input[name="selected_items[]"]');
             checkboxes.forEach(function (checkbox) {

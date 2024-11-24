@@ -90,14 +90,13 @@
                                     <td>${{ $product->sale_price ?? 'N/A' }}</td>
                                     <td>{{ $product->stock }}</td>
                                     <td>
-                                      @php
-                                          $images = json_decode($product->images, true);
-                                          $image = $images[0] ?? 'templates/images/product_02.png'; // Fallback to default image
-                                      @endphp
-                                      <img src="{{ asset($image) }}" alt="Product Image" width="50" height="50" class="img-thumbnail">
-                                  </td>
-                                  
-                                  
+                                        @php
+                                            // Decode the images JSON field and get the first image or use a default image
+                                            $images = json_decode($product->images, true);
+                                            $imagePath = isset($images[0]) ? 'products/' . $images[0] : 'templates/images/product_02.png'; // Fallback to default image
+                                        @endphp
+                                        <img src="{{ asset($imagePath) }}" alt="Product Image" width="50" height="50" class="img-thumbnail">
+                                    </td>
                                     <td>
                                         <span class="badge {{ $product->status == 'active' ? 'bg-success' : 'bg-danger' }}">
                                             {{ ucfirst($product->status) }}

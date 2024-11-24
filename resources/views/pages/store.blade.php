@@ -3,6 +3,22 @@
 
 <head>
     @include('layouts.head')
+    <style>
+        /* Set custom font for the page */
+        body {
+            font-family: 'Arial', sans-serif; /* Replace with your preferred font */
+        }
+
+        /* Optional: Adding a shadow to the card */
+        .product-card {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow */
+            transition: box-shadow 0.3s ease-in-out; /* Smooth transition */
+        }
+
+        .product-card:hover {
+            box-shadow: 0 8px 16px rgba(228, 111, 111, 0.2); /* Deeper shadow on hover */
+        }
+    </style>
 </head>
 
 <body>
@@ -66,39 +82,38 @@
                     }
                 </script>
 
-                    <div class="row">
-    @foreach ($products as $item)
-        <div class="col-sm-6 col-lg-4 text-center item mb-4">
-            @if ($item->sale_price)
-                <span class="tag">Sale</span>
-            @else
-                <span class=""></span>
-            @endif
+                <div class="row mt-4">
+                    @foreach ($products as $item)
+                    <div class="col-sm-6 col-lg-4 text-center item mb-4 product-card">
+                        @if ($item->sale_price)
+                            <span class="tag">Sale</span>
+                        @else
+                            <span class=""></span>
+                        @endif
 
-            <!-- Display Product Images -->
-            <a href="{{ url('storesingle/' . $item->id) }}">
-                @php
-                    $images = json_decode($item->images);
-                    $imagePath = (!empty($images) && is_array($images)) ? 'products/' . $images[0] : 'templates/images/product_02.png';
-                @endphp
-                <img src="{{ asset($imagePath) }}" alt="{{ $item->name }}" class="img-fluid">
-            </a>
-            
-            <!-- Product Details -->
-            <h3 class="text-dark">
-                <a href="{{ url('storesingle/' . $item->id) }}">{{ $item->name }}</a>
-            </h3>
-            <p class="price">
-                @if ($item->sale_price)
-                    <del>{{ $item->price }} Rs</del> &mdash; {{ $item->sale_price }} Rs
-                @else
-                    {{ $item->price }} Rs
-                @endif
-            </p>
-        </div>
-    @endforeach
-</div>
-
+                        <!-- Display Product Images -->
+                        <a href="{{ url('storesingle/' . $item->id) }}">
+                            @php
+                                $images = json_decode($item->images);
+                                $imagePath = (!empty($images) && is_array($images)) ? 'products/' . $images[0] : 'templates/images/product_02.png';
+                            @endphp
+                            <img src="{{ asset($imagePath) }}" alt="{{ $item->name }}" class="img-fluid">
+                        </a>
+                        
+                        <!-- Product Details -->
+                        <h3 class="text-dark">
+                            <a href="{{ url('storesingle/' . $item->id) }}">{{ $item->name }}</a>
+                        </h3>
+                        <p class="price">
+                            @if ($item->sale_price)
+                                <del>{{ $item->price }} Rs</del> &mdash; {{ $item->sale_price }} Rs
+                            @else
+                                {{ $item->price }} Rs
+                            @endif
+                        </p>
+                    </div>
+                    @endforeach
+                </div>
 
                 <div class="row mt-5">
                     <div class="col-md-12 text-center">

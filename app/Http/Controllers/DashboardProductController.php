@@ -82,13 +82,11 @@ public function edit($id)
     return view('admin.Products.edit',  compact('product', 'categories'));
 }
 
+
 public function update(Request $request, $id)
 {
     // Find the product by its ID
-    $product = Product::findOrFail($id);
-
-    // Store current image(s) before deletion, if necessary
-    $existingImages = $product->images; // Assuming the images are stored as an array or a JSON field
+    $product = Product::find($id);
 
     // Update product details
     $product->name = $request->name;
@@ -101,33 +99,34 @@ public function update(Request $request, $id)
 
     // Handle image upload if new images are provided
     if ($request->hasFile('images')) {
-        // Delete existing images first (assuming they are stored on the server)
-        if ($existingImages) {
-            foreach ($existingImages as $image) {
-                $imagePath = public_path('uploads/products/' . $image); // Path where images are stored
+        // Delete existing images
+        if (!empty($product->images)) {
+            foreach (json_decode($product->images, true) as $image) {
+                $imagePath = public_path('products/' . $image);
                 if (file_exists($imagePath)) {
-                    unlink($imagePath); // Delete the image file
+                    unlink($imagePath);
                 }
             }
         }
 
-        // Upload new images and store them
+        // Upload new images
         $imagePaths = [];
         foreach ($request->file('images') as $image) {
             $imageName = time() . '_' . $image->getClientOriginalName();
-            $image->move(public_path('uploads/products'), $imageName);
+            $image->move(public_path('products'), $imageName);
             $imagePaths[] = $imageName;
         }
 
-        // Update the product with new image paths (assuming storing as array or JSON)
-        $product->images = $imagePaths;
+        // Update product images
+        $product->images = json_encode($imagePaths); // Assuming images column is JSON
     }
 
-    // Save the updated product
+    // Save updated product
     $product->save();
 
-    return redirect()->back()->with('success', 'Product updated successfully!');
+    return back()->with('success', 'Product updated successfully!');
 }
+
 
 
 
