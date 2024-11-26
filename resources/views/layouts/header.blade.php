@@ -1,6 +1,6 @@
 <div class="site-navbar py-2 custom-navbar">
     <div class="container">
-        <div class="d-flex align-items-center justify-content-between">
+        <div class="d-flex align-items-center justify-content-between w-100">
             <div class="logo">
                 <div class="site-logo">
                     <a href="{{ url('/') }}" class="js-logo-clone">
@@ -8,9 +8,9 @@
                     </a>
                 </div>
             </div>
-            <div class="main-nav d-none d-lg-block">
-                <nav class="site-navigation text-right text-md-center" role="navigation">
-                    <ul class="site-menu js-clone-nav d-none d-lg-block">
+            <div class="main-nav d-none d-lg-flex justify-content-center w-100">
+                <nav class="site-navigation" role="navigation">
+                    <ul class="site-menu js-clone-nav d-flex justify-content-center m-0">
                         <li class="{{ Route::currentRouteName() == 'home' ? 'active' : '' }}">
                             <a href="{{ url('/') }}">Home</a>
                         </li>
@@ -41,13 +41,16 @@
                     </ul>
                 </nav>
             </div>
+          
             <div class="icons">
+                @if(Auth::check())
                 <a href="{{ url('cart') }}" class="icons-btn d-inline-block bag">
                     <span class="icon-shopping-bag"></span>
                 </a>
+                @endif
                 <a href="#" class="site-menu-toggle js-menu-toggle ml-3 d-inline-block d-lg-none"><span class="icon-menu"></span></a>
             </div>
+            
         </div>
     </div>
-  </div>
-  
+</div>
