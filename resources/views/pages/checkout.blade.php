@@ -2,405 +2,214 @@
 <html lang="en">
 
 <head>
+    <title>Checkout</title>
+    <!-- Meta and Styles -->
     @include('layouts.head')
-
 </head>
 
 <body>
-
     <div class="site-wrap">
-
+        <!-- Header -->
         @include('layouts.header')
 
+        <!-- Breadcrumb -->
         <div class="bg-light py-3">
             <div class="container">
                 <div class="row">
                     <div class="col-md-12 mb-0">
-                        <a href="index.html">Home</a> <span class="mx-2 mb-0">/</span>
+                        <a href="{{ url('/') }}">Home</a>
+                        <span class="mx-2 mb-0">/</span>
                         <strong class="text-black">Checkout</strong>
                     </div>
                 </div>
             </div>
         </div>
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
 
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
+
+        <!-- Main Content -->
         <div class="site-section">
             <div class="container">
-                <div class="row mb-5">
-                    <div class="col-md-12">
-                        @if (!Auth::check())
-                            <!-- If user is NOT logged in -->
+                <!-- Alert for returning customers -->
+                @if (!Auth::check())
+                    <div class="row mb-5">
+                        <div class="col-md-12">
                             <div class="bg-light rounded p-3">
-                                <p class="mb-0">Returning customer? <a href="{{ url('login') }}"
-                                        class="d-inline-block">Click here</a> to login</p>
+                                <p class="mb-0">
+                                    Returning customer?
+                                    <a href="{{ url('login') }}" class="d-inline-block">Click here</a> to login.
+                                </p>
                             </div>
-                        @endif
-
+                        </div>
                     </div>
-                </div>
+                @endif
+
+                <!-- Billing and Order Details -->
                 <div class="row">
+                    <!-- Billing Details -->
                     <div class="col-md-6 mb-5 mb-md-0">
                         <h2 class="h3 mb-3 text-black">Billing Details</h2>
                         <div class="p-3 p-lg-5 border">
-                            <div class="form-group">
-                                <label for="c_country" class="text-black">Country <span
-                                        class="text-danger">*</span></label>
-                                <select id="c_country" class="form-control">
-                                    <option value="1">Select a country</option>
-                                    <option value="2">bangladesh</option>
-                                    <option value="3">Algeria</option>
-                                    <option value="4">Afghanistan</option>
-                                    <option value="5">Ghana</option>
-                                    <option value="6">Albania</option>
-                                    <option value="7">Bahrain</option>
-                                    <option value="8">Colombia</option>
-                                    <option value="9">Dominican Republic</option>
-                                </select>
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-md-6">
-                                    <label for="c_fname" class="text-black">First Name <span
+                            <form method="POST" action="{{ route('checkout.process') }}">
+                                @csrf
+                                <!-- Country Selection -->
+                                <div class="form-group">
+                                    <label for="c_country" class="text-black">Country <span
                                             class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="c_fname" name="c_fname">
+                                    <select id="c_country" class="form-control" name="country">
+                                        <option value="">Select a country</option>
+                                        <option value="Pakistan">Pakistan</option>
+                                        <option value="United States">United States</option>
+                                        <option value="Canada">Canada</option>
+                                        <option value="United Kingdom">United Kingdom</option>
+                                        <option value="Australia">Australia</option>
+                                        <option value="Germany">Germany</option>
+                                        <option value="France">France</option>
+                                        <option value="India">India</option>
+                                        <option value="Brazil">Brazil</option>
+                                        <option value="South Africa">South Africa</option>
+                                        <option value="Japan">Japan</option>
+                                        <option value="China">China</option>
+                                        <option value="Mexico">Mexico</option>
+                                        <option value="Italy">Italy</option>
+                                        <option value="Spain">Spain</option>
+                                        <option value="Nigeria">Nigeria</option>
+                                        <option value="Russia">Russia</option>
+                                        <option value="United Arab Emirates">United Arab Emirates</option>
+                                        <option value="South Korea">South Korea</option>
+                                        <option value="Saudi Arabia">Saudi Arabia</option>
+                                        <!-- Add more countries -->
+                                    </select>
                                 </div>
-                                <div class="col-md-6">
-                                    <label for="c_lname" class="text-black">Last Name <span
-                                            class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="c_lname" name="c_lname">
-                                </div>
-                            </div>
 
-                            <div class="form-group row">
-                                <div class="col-md-12">
-                                    <label for="c_companyname" class="text-black">Company Name </label>
-                                    <input type="text" class="form-control" id="c_companyname" name="c_companyname">
+                                <!-- Name Fields -->
+                                <div class="form-group row">
+                                    <div class="col-md-6">
+                                        <label for="c_fname" class="text-black">First Name <span
+                                                class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="c_fname" name="first_name">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="c_lname" class="text-black">Last Name <span
+                                                class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="c_lname" name="last_name">
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="form-group row">
-                                <div class="col-md-12">
+                                <!-- Address -->
+                                <div class="form-group">
                                     <label for="c_address" class="text-black">Address <span
                                             class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="c_address" name="c_address"
+                                    <input type="text" class="form-control" id="c_address" name="address"
                                         placeholder="Street address">
                                 </div>
-                            </div>
-
-                            <div class="form-group">
-                                <input type="text" class="form-control"
-                                    placeholder="Apartment, suite, unit etc. (optional)">
-                            </div>
-
-                            <div class="form-group row">
-                                <div class="col-md-6">
-                                    <label for="c_state_country" class="text-black">State / Country <span
-                                            class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="c_state_country"
-                                        name="c_state_country">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="address_optional"
+                                        placeholder="Apartment, suite, etc. (optional)">
                                 </div>
-                                <div class="col-md-6">
-                                    <label for="c_postal_zip" class="text-black">Posta / Zip <span
-                                            class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="c_postal_zip" name="c_postal_zip">
-                                </div>
-                            </div>
 
-                            <div class="form-group row mb-5">
-                                <div class="col-md-6">
-                                    <label for="c_email_address" class="text-black">Email Address <span
-                                            class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="c_email_address"
-                                        name="c_email_address">
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="c_phone" class="text-black">Phone <span
-                                            class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="c_phone" name="c_phone"
-                                        placeholder="Phone Number">
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="c_create_account" class="text-black" data-toggle="collapse"
-                                    href="#create_an_account" role="button" aria-expanded="false"
-                                    aria-controls="create_an_account"><input type="checkbox" value="1"
-                                        id="c_create_account"> Create an account?</label>
-                                <div class="collapse" id="create_an_account">
-                                    <div class="py-2">
-                                        <p class="mb-3">Create an account by entering the information below. If you
-                                            are a returning customer
-                                            please login at the top of the page.</p>
-                                        <div class="form-group">
-                                            <label for="c_account_password" class="text-black">Account
-                                                Password</label>
-                                            <input type="email" class="form-control" id="c_account_password"
-                                                name="c_account_password" placeholder="">
-                                        </div>
+                                <!-- State and Zip -->
+                                <div class="form-group row">
+                                    <div class="col-md-6">
+                                        <label for="c_state_country" class="text-black">State / Country <span
+                                                class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="c_state_country"
+                                            name="state_country">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="c_postal_zip" class="text-black">Postal / Zip <span
+                                                class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="c_postal_zip" name="postal_zip">
                                     </div>
                                 </div>
-                            </div>
 
-
-                            <div class="form-group">
-                                <label for="c_ship_different_address" class="text-black" data-toggle="collapse"
-                                    href="#ship_different_address" role="button" aria-expanded="false"
-                                    aria-controls="ship_different_address"><input type="checkbox" value="1"
-                                        id="c_ship_different_address">
-                                    Ship To A Different Address?</label>
-                                <div class="collapse" id="ship_different_address">
-                                    <div class="py-2">
-
-                                        <div class="form-group">
-                                            <label for="c_diff_country" class="text-black">Country <span
-                                                    class="text-danger">*</span></label>
-                                            <select id="c_diff_country" class="form-control">
-                                                <option value="1">Select a country</option>
-                                                <option value="2">bangladesh</option>
-                                                <option value="3">Algeria</option>
-                                                <option value="4">Afghanistan</option>
-                                                <option value="5">Ghana</option>
-                                                <option value="6">Albania</option>
-                                                <option value="7">Bahrain</option>
-                                                <option value="8">Colombia</option>
-                                                <option value="9">Dominican Republic</option>
-                                            </select>
-                                        </div>
-
-
-                                        <div class="form-group row">
-                                            <div class="col-md-6">
-                                                <label for="c_diff_fname" class="text-black">First Name <span
-                                                        class="text-danger">*</span></label>
-                                                <input type="text" class="form-control" id="c_diff_fname"
-                                                    name="c_diff_fname">
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label for="c_diff_lname" class="text-black">Last Name <span
-                                                        class="text-danger">*</span></label>
-                                                <input type="text" class="form-control" id="c_diff_lname"
-                                                    name="c_diff_lname">
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group row">
-                                            <div class="col-md-12">
-                                                <label for="c_diff_companyname" class="text-black">Company Name
-                                                </label>
-                                                <input type="text" class="form-control" id="c_diff_companyname"
-                                                    name="c_diff_companyname">
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group row">
-                                            <div class="col-md-12">
-                                                <label for="c_diff_address" class="text-black">Address <span
-                                                        class="text-danger">*</span></label>
-                                                <input type="text" class="form-control" id="c_diff_address"
-                                                    name="c_diff_address" placeholder="Street address">
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <input type="text" class="form-control"
-                                                placeholder="Apartment, suite, unit etc. (optional)">
-                                        </div>
-
-                                        <div class="form-group row">
-                                            <div class="col-md-6">
-                                                <label for="c_diff_state_country" class="text-black">State / Country
-                                                    <span class="text-danger">*</span></label>
-                                                <input type="text" class="form-control" id="c_diff_state_country"
-                                                    name="c_diff_state_country">
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label for="c_diff_postal_zip" class="text-black">Posta / Zip <span
-                                                        class="text-danger">*</span></label>
-                                                <input type="text" class="form-control" id="c_diff_postal_zip"
-                                                    name="c_diff_postal_zip">
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group row mb-5">
-                                            <div class="col-md-6">
-                                                <label for="c_diff_email_address" class="text-black">Email Address
-                                                    <span class="text-danger">*</span></label>
-                                                <input type="text" class="form-control" id="c_diff_email_address"
-                                                    name="c_diff_email_address">
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label for="c_diff_phone" class="text-black">Phone <span
-                                                        class="text-danger">*</span></label>
-                                                <input type="text" class="form-control" id="c_diff_phone"
-                                                    name="c_diff_phone" placeholder="Phone Number">
-                                            </div>
-                                        </div>
-
+                                <!-- Contact Information -->
+                                <div class="form-group row">
+                                    <div class="col-md-6">
+                                        <label for="c_email_address" class="text-black">Email Address <span
+                                                class="text-danger">*</span></label>
+                                        <input type="email" class="form-control" id="c_email_address"
+                                            name="email">
                                     </div>
-
+                                    <div class="col-md-6">
+                                        <label for="c_phone" class="text-black">Phone <span
+                                                class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="c_phone" name="phone">
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="form-group">
-                                <label for="c_order_notes" class="text-black">Order Notes</label>
-                                <textarea name="c_order_notes" id="c_order_notes" cols="30" rows="5" class="form-control"
-                                    placeholder="Write your notes here..."></textarea>
-                            </div>
+                                <!-- Order Notes -->
+                                <div class="form-group">
+                                    <label for="c_order_notes" class="text-black">Order Notes</label>
+                                    <textarea name="order_notes" id="c_order_notes" cols="30" rows="5" class="form-control"
+                                        placeholder="Write your notes here..."></textarea>
+                                </div>
 
+                                <button type="submit" class="btn btn-primary btn-lg btn-block">Place Order</button>
+                            </form>
                         </div>
                     </div>
+
+                    <!-- Order Summary -->
                     <div class="col-md-6">
+                        <h2 class="h3 mb-3 text-black">Your Order</h2>
+                        <div class="p-3 p-lg-5 border">
+                            <table class="table site-block-order-table mb-5">
+                                <thead>
+                                    <tr>
+                                        <th>Product</th>
+                                        <th>Quantity</th>
+                                        <th>Price</th>
+                                        <th>Total Price</th>
+                                        <th>Status</th> <!-- Added Status Column -->
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @forelse ($orders as $order)
+                                        @foreach ($order->items as $item)
+                                            <tr>
+                                                <td>{{ $item->product->name }}</td> <!-- Product Name -->
+                                                <td>{{ $item->quantity }}</td>
+                                                <td>${{ number_format($item->price, 2) }}</td>
+                                                <td>${{ number_format($item->quantity * $item->price, 2) }}</td>
+                                                <td>{{ ucfirst($order->status) }}</td> <!-- Order Status -->
+                                            </tr>
+                                        @endforeach
+                                    @empty
+                                        <tr>
+                                            <td colspan="5">No orders found.</td>
+                                            <!-- Adjusted colspan to 5 to include the new column -->
+                                        </tr>
+                                    @endforelse
+                                </tbody>
+                            </table>
 
-                        <div class="row mb-5">
-                            <div class="col-md-12">
-                                <h2 class="h3 mb-3 text-black">Coupon Code</h2>
-                                <div class="p-3 p-lg-5 border">
+                            <!-- Total Orders Count -->
+                            <p class="text-dark">Total Orders: <strong>{{ $orders->count() }}</strong></p>
 
-                                    <label for="c_code" class="text-black mb-3">Enter your coupon code if you have
-                                        one</label>
-                                    <div class="input-group w-75">
-                                        <input type="text" class="form-control" id="c_code"
-                                            placeholder="Coupon Code" aria-label="Coupon Code"
-                                            aria-describedby="button-addon2">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-primary btn-sm px-4" type="button"
-                                                id="button-addon2">Apply</button>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
+                            {{-- @if (Auth::check())
+                                <button type="submit" class="btn btn-primary btn-lg btn-block">Proceed to Payment</button>
+                            @else
+                                <p class="text-danger">Please log in to place your order.</p>
+                            @endif --}}
                         </div>
-
-                        <div class="row mb-5">
-                            <div class="col-md-12">
-                                <h2 class="h3 mb-3 text-black">Your Order</h2>
-                                <div class="p-3 p-lg-5 border">
-                                    <table class="table site-block-order-table mb-5">
-                                        <thead>
-                                            <th>Product</th>
-                                            <th>Total</th>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Bioderma <strong class="mx-2">x</strong> 1</td>
-                                                <td>$55.00</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Ibuprofeen <strong class="mx-2">x</strong> 1</td>
-                                                <td>$45.00</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-black font-weight-bold"><strong>Cart Subtotal</strong>
-                                                </td>
-                                                <td class="text-black">$350.00</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-black font-weight-bold"><strong>Order Total</strong>
-                                                </td>
-                                                <td class="text-black font-weight-bold"><strong>$350.00</strong></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-
-                                    <div class="border mb-3">
-                                        <h3 class="h6 mb-0"><a class="d-block" data-toggle="collapse"
-                                                href="#collapsebank" role="button" aria-expanded="false"
-                                                aria-controls="collapsebank">Direct Bank Transfer</a></h3>
-
-                                        <div class="collapse" id="collapsebank">
-                                            <div class="py-2 px-4">
-                                                <p class="mb-0">Make your payment directly into our bank account.
-                                                    Please use your Order ID as the
-                                                    payment reference. Your order won’t be shipped until the funds have
-                                                    cleared in our account.</p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="border mb-3">
-                                        <h3 class="h6 mb-0"><a class="d-block" data-toggle="collapse"
-                                                href="#collapsecheque" role="button" aria-expanded="false"
-                                                aria-controls="collapsecheque">Cheque Payment</a></h3>
-
-                                        <div class="collapse" id="collapsecheque">
-                                            <div class="py-2 px-4">
-                                                <p class="mb-0">Make your payment directly into our bank account.
-                                                    Please use your Order ID as the
-                                                    payment reference. Your order won’t be shipped until the funds have
-                                                    cleared in our account.</p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    {{-- <div class="border mb-5">
-                                        <h3 class="h6 mb-0"><a class="d-block" data-toggle="collapse"
-                                                href="#collapsepaypal" role="button" aria-expanded="false"
-                                                aria-controls="collapsepaypal">Paypal</a></h3>
-
-                                        <div class="collapse" id="collapsepaypal">
-                                            <div class="py-2 px-4">
-                                                <p class="mb-0">Make your payment directly into our bank account.
-                                                    Please use your Order ID as the
-                                                    payment reference. Your order won’t be shipped until the funds have
-                                                    cleared in our account.</p>
-                                            </div>
-                                        </div>
-                                    </div> --}}
-
-                                    <div class="form-group">
-                                        @if(Auth::check()) <!-- If user is logged in -->
-                                            <button class="btn btn-primary btn-lg btn-block" onclick="window.location='thankyou.html'">Place Order</button>
-                                        @else <!-- If user is not logged in -->
-                                            <button class="btn btn-primary btn-lg btn-block" disabled>Place Order</button>
-                                            <small class="text-danger">Please login first to place the order.</small>
-                                        @endif
-                                    </div>
-                                    
-
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
-                </div>
-                <!-- </form> -->
-            </div>
-        </div>
 
-
-        <div class="site-section bg-secondary bg-image" style="background-image: url('images/bg_2.jpg');">
-            <div class="container">
-                <div class="row align-items-stretch">
-                    <div class="col-lg-6 mb-5 mb-lg-0">
-                        <a href="#" class="banner-1 h-100 d-flex"
-                            style="background-image: url('images/bg_1.jpg');">
-                            <div class="banner-1-inner align-self-center">
-                                <h2>Pharma Products</h2>
-                                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestiae ex ad minus rem
-                                    odio voluptatem.
-                                </p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-lg-6 mb-5 mb-lg-0">
-                        <a href="#" class="banner-1 h-100 d-flex"
-                            style="background-image: url('images/bg_2.jpg');">
-                            <div class="banner-1-inner ml-auto  align-self-center">
-                                <h2>Rated by Experts</h2>
-                                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestiae ex ad minus rem
-                                    odio voluptatem.
-                                </p>
-                            </div>
-                        </a>
-                    </div>
                 </div>
             </div>
+
+            <!-- Footer -->
+            @include('layouts.footer')
         </div>
-
-        @include('layouts.footer')
-    </div>
-
-    @include('layouts.script')
-
 </body>
 
 </html>

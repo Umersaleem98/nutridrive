@@ -69,75 +69,8 @@ class HomeController extends Controller
         return view('pages.contact');
     }
     
-    public function cartpage()
-{
-    $cartItems = Cart::with('product') // Eager load product data
-        ->where('user_id', auth()->id()) // Fetch only the logged-in user's cart items
-        ->get();
-
-    return view('pages.cart', compact('cartItems'));
-}
-
-
-    public function addToCart(Request $request, $productId)
-    {
-        // Check if product exists
-        $product = Product::findOrFail($productId);
-
-        // Check if user is authenticated or using session ID for guests
-        $userId = Auth::check() ? Auth::id() : null;
-        $sessionId = session()->getId();
-
-        // Check if the product is already in the cart
-        $cartItem = Cart::where('product_id', $productId)
-                        ->where('user_id', $userId)
-                        ->first();
-
-        if ($cartItem) {
-            // If the product is already in the cart, update the quantity
-            $cartItem->quantity += $request->quantity;
-            $cartItem->save();
-        } else {
-            // Add the product to the cart
-            Cart::create([
-                'product_id' => $productId,
-                'quantity' => $request->quantity,
-                'user_id' => $userId,
-            ]);
-        }
-
-        // Redirect back to the store or cart page
-        return redirect()->route('cart')->with('success', 'Product added to cart!');
-    }
     
-    public function cartremove($id)
-    {
-        $cart = Cart::find($id); // Find the cart item by ID
-    
-        if ($cart) {
-            $cart->delete(); // Delete the cart item
-            return redirect()->back()->with('success', 'Cart item deleted successfully.');
-        } else {
-            return redirect()->back()->with('error', 'Cart item not found.');
-        }
-    }
-
-    public function deleteSelected(Request $request)
-{
-    $selectedItems = $request->input('selected_items', []);
-    
-    if (!empty($selectedItems)) {
-        Cart::whereIn('id', $selectedItems)->delete();
-        return redirect()->back()->with('success', 'Selected items deleted successfully!');
-    }
-
-    return redirect()->back()->with('error', 'No items selected!');
-}
-
-    public function checkoutpage()
-    {
-        return view('pages.checkout');
-    }
+   
 
 
 }

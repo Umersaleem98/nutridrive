@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -80,7 +81,11 @@ class AuthController extends Controller
     
         Auth::login($user);
     
-        return redirect('index');
+        Cart::create([
+            'user_id' => $user->id,
+        ]);
+
+        return redirect('/index');
     }
     
 

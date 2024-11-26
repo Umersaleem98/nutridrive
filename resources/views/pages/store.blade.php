@@ -6,18 +6,29 @@
     <style>
         /* Set custom font for the page */
         body {
-            font-family: 'Arial', sans-serif; /* Replace with your preferred font */
+            font-family: 'Arial', sans-serif;
+            /* Replace with your preferred font */
         }
 
         /* Optional: Adding a shadow to the card */
         .product-card {
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow */
-            transition: box-shadow 0.3s ease-in-out; /* Smooth transition */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            /* Adds a subtle shadow */
+            transition: box-shadow 0.3s ease-in-out;
+            /* Smooth transition */
         }
 
         .product-card:hover {
-            box-shadow: 0 8px 16px rgba(228, 111, 111, 0.2); /* Deeper shadow on hover */
+            box-shadow: 0 8px 16px rgba(228, 111, 111, 0.2);
+            /* Deeper shadow on hover */
         }
+
+        .product-card img {
+        width: 100%; /* Make the image take the full width of its container */
+        height: auto; /* Maintain aspect ratio */
+        object-fit: contain; /* Ensure the image fits without distortion */
+        max-height: 200px; /* Optional: Limit the height for consistency */
+    }
     </style>
 </head>
 
@@ -82,38 +93,43 @@
                     }
                 </script>
 
-                <div class="row mt-4">
+                <div class="row mt-5">
                     @foreach ($products as $item)
-                    <div class="col-sm-6 col-lg-4 text-center item mb-4 product-card">
-                        @if ($item->sale_price)
-                            <span class="tag">Sale</span>
-                        @else
-                            <span class=""></span>
-                        @endif
-
-                        <!-- Display Product Images -->
-                        <a href="{{ url('storesingle/' . $item->id) }}">
-                            @php
-                                $images = json_decode($item->images);
-                                $imagePath = (!empty($images) && is_array($images)) ? 'products/' . $images[0] : 'templates/images/product_02.png';
-                            @endphp
-                            <img src="{{ asset($imagePath) }}" alt="{{ $item->name }}" class="img-fluid">
-                        </a>
-                        
-                        <!-- Product Details -->
-                        <h3 class="text-dark">
-                            <a href="{{ url('storesingle/' . $item->id) }}">{{ $item->name }}</a>
-                        </h3>
-                        <p class="price">
+                        <div class="col-md-3 text-center item mb-4 product-card">
                             @if ($item->sale_price)
-                                <del>{{ $item->price }} Rs</del> &mdash; {{ $item->sale_price }} Rs
+                                <span class="tag">Sale</span>
                             @else
-                                {{ $item->price }} Rs
+                                <span class=""></span>
                             @endif
-                        </p>
-                    </div>
+
+                            <!-- Display Product Images -->
+                            <a href="{{ url('storesingle/' . $item->id) }}">
+                                @php
+                                    $images = json_decode($item->images);
+                                    $imagePath =
+                                        !empty($images) && is_array($images)
+                                            ? 'products/' . $images[0]
+                                            : 'templates/images/product_02.png';
+                                @endphp
+                                <img src="{{ asset($imagePath) }}" alt="{{ $item->name }}" class="img-fluid">
+                            </a>
+
+                            <!-- Product Details -->
+                            <h3 class="text-dark">
+                                <a href="{{ url('storesingle/' . $item->id) }}">{{ $item->name }}</a>
+                            </h3>
+                            <h6 class="text-dark">{{ $item->subitile }}</h6>
+                            <p class="price">
+                                @if ($item->sale_price)
+                                    <del>{{ $item->price }} Rs</del> &mdash; {{ $item->sale_price }} Rs
+                                @else
+                                    {{ $item->price }} Rs
+                                @endif
+                            </p>
+                        </div>
                     @endforeach
                 </div>
+
 
                 <div class="row mt-5">
                     <div class="col-md-12 text-center">

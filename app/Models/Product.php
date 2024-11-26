@@ -11,7 +11,7 @@ class Product extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'name', 'category_id', 'price', 'sale_price', 'status', 'stock', 'description', 'images'
+        'name','subitile', 'category_id', 'price', 'sale_price', 'status', 'stock', 'description', 'images'
     ];
 
     public function category()
@@ -23,4 +23,6 @@ class Product extends Model
     {
         return $this->hasMany(Cart::class);
     }
+
+    
 }

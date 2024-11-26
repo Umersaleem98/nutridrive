@@ -3,7 +3,9 @@
 use App\Models\Product;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AuthDashboartController;
 use App\Http\Controllers\UserDashboartController;
@@ -17,7 +19,7 @@ Route::get('userregister', [AuthController::class, 'showRegister'])->name('regis
 Route::post('userregister', [AuthController::class, 'register']);
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/', function () {
+    Route::get('/index', function () {
         $products = Product::paginate(6); // Fetch 9 products per page
         return view('index', ['products' => $products]);
     });
@@ -35,14 +37,21 @@ Route::get('store', [HomeController::class, 'storepage'])->name('store');
 Route::get('storesingle/{id}', [HomeController::class, 'single_storepage'])->name('storesingle');
 Route::get('about', [HomeController::class, 'aboutpage'])->name('about');
 Route::get('contact', [HomeController::class, 'contactpage'])->name('contact');
-Route::get('cart', [HomeController::class, 'cartpage'])->name('cart');
-Route::get('cart_remove/{id}', [HomeController::class, 'cartremove']);
-Route::post('cart_delete_selected', [HomeController::class, 'deleteSelected'])->name('cart.deleteSelected');
 
-Route::post('add-to-cart/{productId}', [HomeController::class, 'addToCart'])->name('add.to.cart');
+Route::get('cart', [CartController::class, 'cartpage'])->name('cart');
+Route::get('cart_remove/{id}', [CartController::class, 'cartremove']);
+Route::post('cart_delete_selected', [CartController::class, 'deleteSelected'])->name('cart.deleteSelected');
 
-Route::get('checkout', [HomeController::class, 'checkoutpage'])->name('checkout');
+Route::post('add-to-cart/{productId}', [CartController::class, 'addToCart'])->name('add.to.cart');
 
+Route::get('checkout', [CheckoutController::class, 'checkoutpage'])->name('checkout');
+
+Route::post('/checkout/process', [CheckoutController::class, 'checkout'])->name('checkout.process');
+
+Route::post('/checkout/place-order', [CheckoutController::class, 'placeOrder'])->name('order.place');
+Route::get('/thankyou', function () {
+    return view('thankyou');
+})->name('thankyou');
 // Dashboard Routes 
 
 // Route::get('login', [AuthDashboartController::class, 'loginpage']);

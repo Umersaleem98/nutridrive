@@ -44,18 +44,20 @@
         <div class="site-section">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-5 mr-auto">
+                    <div class="col-md-4 mr-auto">
                         <div class="border text-center">
                             @php
                                 $images = json_decode($products->images);
                                 $imagePath = (!empty($images) && is_array($images)) ? 'products/' . $images[0] : 'templates/images/product_02.png';
                             @endphp
-                            <img src="{{ asset($imagePath) }}" alt="{{ $products->name }}" class="img-fluid" style="height: 400px;">
+                            <img src="{{ asset($imagePath) }}" alt="{{ $products->name }}" class="img-fluid" style="height: 300px;">
                         </div>
                     </div>
                     
-                    <div class="col-md-6">
+                    <div class="col-md-7">
                         <h2 class="text-black">{{ $products->name }}</h2>
+                        <h5 class="text-black">{{ $products->subitile }}</h5>
+
 
                         <!-- Description Section -->
                         <p id="description" class="description">
@@ -64,8 +66,8 @@
                         <button id="read-more-btn" class="read-more-btn">Read More</button>
 
                         <p>
-                            <del>{{ $products->price }}</del>
-                            <strong class="text-primary h4">{{ $products->price }}</strong>
+                            {{-- <del>{{ $products->price }}</del> --}}
+                            <strong class="text-primary h4">{{ $products->price }} RS</strong>
                         </p>
 
                         <!-- Quantity Selection -->
