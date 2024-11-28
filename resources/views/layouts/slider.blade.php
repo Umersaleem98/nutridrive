@@ -56,8 +56,8 @@
         <div class="row" style="height: 100%;">
             <div class="col-lg-7 mx-auto order-lg-2 align-self-center" style="height: 100%;">
                 <div class="site-block-cover-content text-center" style="height: 100%; display: flex; flex-direction: column; justify-content: center;">
-                    <h1 class="text-fade" style="font-size: 2.5rem; font-weight: bold; color:#ffffff;">Welcome To NutriDrive</h1>
-                    <h2 class="sub-title" style="font-size: 1.5rem; color:#ffffff;">Steering towards healthier lifestyle!</h2>
+                    <h1 class="text-fade" style="font-size: 2.0rem; font-weight: bold; color:#ffffff;">Steering towards healthier lifestyle!</h1>
+                    {{-- <h2 class="sub-title" style="font-size: 1.5rem; color:#ffffff;">Steering towards healthier lifestyle!</h2> --}}
                     <p>
                         <a href="{{ url('store') }}" class="btn btn-danger px-5 py-3" style="font-size: 1.2rem;">Shop Now</a>
                     </p>

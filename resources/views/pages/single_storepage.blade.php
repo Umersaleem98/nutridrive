@@ -50,7 +50,7 @@
                                 $images = json_decode($products->images);
                                 $imagePath = (!empty($images) && is_array($images)) ? 'products/' . $images[0] : 'templates/images/product_02.png';
                             @endphp
-                            <img src="{{ asset($imagePath) }}" alt="{{ $products->name }}" class="img-fluid" style="height: 300px;">
+                            <img src="{{ asset($imagePath) }}" alt="{{ $products->name }}" class="img-fluid" style="height: 250px;">
                         </div>
                     </div>
                     

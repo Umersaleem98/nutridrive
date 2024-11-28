@@ -41,7 +41,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-12 mb-0">
-                        <a href="index.html">Home</a>
+                        <a href="{{ url('/') }}">Home</a>
                         <span class="mx-2 mb-0">/</span>
                         <strong class="text-black">Store</strong>
                     </div>
@@ -111,7 +111,7 @@
                                             ? 'products/' . $images[0]
                                             : 'templates/images/product_02.png';
                                 @endphp
-                                <img src="{{ asset($imagePath) }}" alt="{{ $item->name }}" class="img-fluid">
+                                <img src="{{ asset($imagePath) }}" alt="{{ $item->name }}" class="img-fluid" style="height: 250px;">
                             </a>
 
                             <!-- Product Details -->
