@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    <title>Order List</title>
     @include('admin.css')
 </head>
 
@@ -59,6 +60,10 @@
                                                     <th>Customer Name</th>
                                                     <th>Customer Email</th>
                                                     <th>Customer Phone</th>
+                                                    {{-- <th>Company Name</th> --}}
+                                                    <th>Address</th>
+                                                    <th>State</th>
+                                                    <th>Postal Code</th>
                                                     <th>Product</th>
                                                     <th>Price</th>
                                                     <th>Quantity</th>
@@ -75,8 +80,12 @@
                                                             <tr>
                                                                 <th scope="row">{{ $order->id }}</th>
                                                                 <td>{{ $order->user->name ?? 'N/A' }}</td>
-                                                                <td>{{ $order->user->email ?? 'N/A' }}</td>
-                                                                <td>{{ $order->user->phone ?? 'N/A' }}</td>
+                                                                <td>{{ $order->email ?? 'N/A' }}</td>
+                                                                <td>{{ $order->phone ?? 'N/A' }}</td>
+                                                                {{-- <td>{{ $order->company_name ?? 'N/A' }}</td> --}}
+                                                                <td>{{ $order->address ?? 'N/A' }}</td>
+                                                                <td>{{ $order->state ?? 'N/A' }}</td>
+                                                                <td>{{ $order->postal_code ?? 'N/A' }}</td>
                                                                 <td>{{ $item->product->name ?? 'Unknown Product' }}</td>
                                                                 <td>{{ $item->price }} RS</td>
                                                                 <td>{{ $item->quantity }}</td>
@@ -91,12 +100,11 @@
                                                                         {{ ucfirst($order->status) }}
                                                                     </span>
                                                                 </td>
-                                                                
                                                                 <td>
                                                                     @php
                                                                         // Decode the images JSON field
                                                                         $images = json_decode($item->product->images, true);
-                                                                        
+                
                                                                         // Check if images exist and set the image path
                                                                         $imagePath = (!empty($images) && isset($images[0])) 
                                                                             ? 'products/' . $images[0] 
@@ -108,7 +116,7 @@
                                                                          class="img-thumbnail" style="object-fit: cover;">
                                                                 </td>
                                                                 <td>
-                                                                    <a href="{{ url('delivered', $order->id) }}" class="btn btn-warning btn-sm mb-2">delivered</a>
+                                                                    <a href="{{ url('delivered', $order->id) }}" class="btn btn-warning btn-sm mb-2">Delivered</a>
                                                                     <a href="{{ url('canceled', $order->id) }}" class="btn btn-danger btn-sm">Canceled</a>
                                                                 </td>
                                                             </tr>
@@ -116,7 +124,7 @@
                                                     @endforeach
                                                 @else
                                                     <tr>
-                                                        <td colspan="11" class="text-center">No orders available.</td>
+                                                        <td colspan="15" class="text-center">No orders available.</td>
                                                     </tr>
                                                 @endif
                                             </tbody>
@@ -127,7 +135,7 @@
                         </div><!-- End Order List -->
                     </div>
                 </div><!-- End Left side columns -->
-
+                
             </div>
         </section>
 

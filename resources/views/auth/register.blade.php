@@ -3,16 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
+    <title>User Register</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Custom Styling */
+        body {
+            background-color: #f8f9fa; /* Light background for contrast */
+        }
+        .card {
+            border: none;
+            border-radius: 10px;
+        }
+        .card-header {
+            background-color: #ffffff;
+            color: #3A1555;
+            text-align: center;
+        }
+        .btn-primary {
+            background-color: #4B1B6D;
+            border-color: #4B1B6D;
+        }
+        .btn-primary:hover {
+            background-color: #3a1555;
+            border-color: #3a1555;
+        }
+        .form-label {
+            color: #4B1B6D;
+            font-weight: bold;
+        }
+        .text-decoration-none {
+            color: #4B1B6D;
+        }
+        .text-decoration-none:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
-<body>
+<body style="background-color: #9b64c2">
     <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="card shadow">
-                    <div class="card-header bg-primary text-white text-center">
+                    <div class="card-header">
                         <h3>Register</h3>
                     </div>
                     <div class="card-body">

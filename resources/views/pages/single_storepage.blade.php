@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    <title>Single Store</title>
     @include('layouts.head')
     <style>
         /* CSS to truncate the description */

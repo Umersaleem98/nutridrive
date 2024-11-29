@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    <title>Store</title>
     @include('layouts.head')
     <style>
         /* Set custom font for the page */

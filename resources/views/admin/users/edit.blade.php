@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    <title>Update User</title>
     @include('admin.css')
 </head>
 

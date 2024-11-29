@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+  <title>Product Update</title>
   @include('admin.css')
 </head>
 

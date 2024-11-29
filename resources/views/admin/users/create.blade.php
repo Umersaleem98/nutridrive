@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    <title>Craete User</title>
     @include('admin.css')
 </head>
 

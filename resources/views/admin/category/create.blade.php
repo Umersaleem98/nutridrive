@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+  <title>Create Category</title>
   @include('admin.css')
 </head>
 

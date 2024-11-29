@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+  <title>Update Category</title>
   @include('admin.css')
 </head>
 

@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+  <title>Category List</title>
   @include('admin.css')
 </head>
 
