@@ -9,8 +9,10 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AuthDashboartController;
 use App\Http\Controllers\UserDashboartController;
+use App\Http\Controllers\OrderDashboardController;
 use App\Http\Controllers\DashboardProductController;
 use App\Http\Controllers\DashboardCategoryController;
+// use App\Http\Controllers\DashboardController;
 
 // Auth Routes 
 Route::get('userlogin', [AuthController::class, 'showLogin'])->name('login');
@@ -58,9 +60,13 @@ Route::get('/thankyou', function () {
 Route::get('/login', [AuthDashboartController::class, 'showLoginForm']);
 Route::post('/login', [AuthDashboartController::class, 'login']);
 Route::get('/logout', [AuthDashboartController::class, 'logout']);
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware('admin');
+
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware('admin');
+
+
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('admin');
 
 // Dashboard Products routes 
 
@@ -89,3 +95,9 @@ Route::post('add_user', [UserDashboartController::class, 'store']);
 Route::get('edit_user/{id}', [UserDashboartController::class, 'edit']);
 Route::post('update/{id}', [UserDashboartController::class, 'update']);
 Route::get('delete_user/{id}', [UserDashboartController::class, 'delete']);
+
+// Dashboard Orders routes 
+
+Route::get('order_list', [OrderDashboardController::class, 'show']);
+Route::get('/delivered/{id}', [OrderDashboardController::class, 'markAsDelivered'])->name('order.delivered');
+Route::get('/canceled/{id}', [OrderDashboardController::class, 'markAsCanceled']);
