@@ -65,28 +65,27 @@ class AuthController extends Controller
     // Handle Registration
     public function register(Request $request)
     {
-        $data = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'phone' => 'required|string|max:255|unique:users',
-            'password' => 'required|string|min:8|confirmed',
-        ]);
-    
+        // Directly creating the user without validation
         $user = User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'phone' => $data['phone'],
-            'password' => Hash::make($data['password']),
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'password' => Hash::make($request->password),
         ]);
     
         Auth::login($user);
     
+        // Create a cart for the user
         Cart::create([
             'user_id' => $user->id,
         ]);
-
+    
+        // Flash success message
+        session()->flash('success', 'You are registered successfully!');
+    
         return redirect('/index');
     }
+    
     
 
     // Handle Logout

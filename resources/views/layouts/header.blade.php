@@ -27,7 +27,7 @@
                             <li class="nav-item">
                                 <form action="{{ url('userlogout') }}" method="POST" class="d-inline">
                                     @csrf
-                                    <button type="submit" class="btn btn-link nav-link" style="border: none; padding: 0;">Logout</button>
+                                    <button type="submit" class="btn btn-link nav-link">Logout</button>
                                 </form>
                             </li>
                         @else

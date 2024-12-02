@@ -69,11 +69,6 @@
                 <i class="bi bi-bag"></i><span>Orders</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="orders-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                {{-- <li>
-                    <a href="{{ url('add_order') }}">
-                        <i class="bi bi-circle"></i><span>Add Order</span>
-                    </a>
-                </li> --}}
                 <li>
                     <a href="{{ url('order_list') }}">
                         <i class="bi bi-circle"></i><span>Order List</span>
@@ -83,15 +78,15 @@
         </li><!-- End Orders Nav -->
   
         <li class="nav-heading">Pages</li>
-{{--   
+
+        <!-- New Contact Tab -->
         <li class="nav-item">
-            <a class="nav-link collapsed" href="users-profile.html">
-                <i class="bi bi-person"></i>
-                <span>Profile</span>
+            <a class="nav-link collapsed" href="{{ url('contactlist') }}">
+                <i class="bi bi-envelope"></i>
+                <span>Contact</span>
             </a>
-        </li> --}}
+        </li><!-- End Contact Nav -->
   
     </ul>
   
-  </aside><!-- End Sidebar -->
-  
+</aside><!-- End Sidebar -->

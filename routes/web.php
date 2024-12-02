@@ -5,11 +5,13 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AuthDashboartController;
 use App\Http\Controllers\UserDashboartController;
 use App\Http\Controllers\OrderDashboardController;
+use App\Http\Controllers\DashboardContactController;
 use App\Http\Controllers\DashboardProductController;
 use App\Http\Controllers\DashboardCategoryController;
 // use App\Http\Controllers\DashboardController;
@@ -39,6 +41,7 @@ Route::get('store', [HomeController::class, 'storepage'])->name('store');
 Route::get('storesingle/{id}', [HomeController::class, 'single_storepage'])->name('storesingle');
 Route::get('about', [HomeController::class, 'aboutpage'])->name('about');
 Route::get('contact', [HomeController::class, 'contactpage'])->name('contact');
+Route::post('/contact', [ContactController::class, 'submitContactForm'])->name('contact.submit');
 
 Route::get('cart', [CartController::class, 'cartpage'])->name('cart');
 Route::get('cart_remove/{id}', [CartController::class, 'cartremove']);
@@ -101,3 +104,8 @@ Route::get('delete_user/{id}', [UserDashboartController::class, 'delete']);
 Route::get('order_list', [OrderDashboardController::class, 'show']);
 Route::get('/delivered/{id}', [OrderDashboardController::class, 'markAsDelivered'])->name('order.delivered');
 Route::get('/canceled/{id}', [OrderDashboardController::class, 'markAsCanceled']);
+
+// Dashboard Contact us routes 
+Route::get('contactlist', [DashboardContactController::class, 'show']);
+Route::get('view/{id}', [DashboardContactController::class, 'viewMessage'])->name('view.message');
+Route::get('delete/{id}', [DashboardContactController::class, 'deleteMessage'])->name('delete.message');

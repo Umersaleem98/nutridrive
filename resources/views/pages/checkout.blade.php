@@ -179,10 +179,10 @@
                                             <tr>
                                                 <td>{{ $item->product->name }}</td> <!-- Product Name -->
                                                 <td>{{ $item->quantity }}</td>
-                                                <td>${{ number_format($item->price, 2) }}</td>
-                                                <td>${{ number_format($item->quantity * $item->price, 2) }}</td>
+                                                <td>Rs{{ number_format($item->price, 2) }}</td>
+                                                <td>Rs{{ number_format($item->quantity * $item->price, 2) }}</td>
                                                 <td>{{ ucfirst($order->status) }}</td> <!-- Order Status -->
-                                            </tr>
+                                               </tr>
                                         @endforeach
                                     @empty
                                         <tr>
